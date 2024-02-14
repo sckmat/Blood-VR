@@ -6,26 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="96847edb-ef90-4732-9f91-0c0a09a42176" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blood-VR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blood-VR/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Test material.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Test material.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Obi/Samples/Common/SampleResources/Materials/Metal.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Obi/Samples/Common/SampleResources/Materials/Metal.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Readme.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Readme.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Test Tube/Test tube.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Test Tube/Test tube.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Laboratory.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Laboratory.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TutorialInfo.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TutorialInfo/Icons.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TutorialInfo/Icons/URP.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TutorialInfo/Icons/URP.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TutorialInfo/Layout.wlt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TutorialInfo/Layout.wlt.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TutorialInfo/Scripts.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TutorialInfo/Scripts/Editor.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TutorialInfo/Scripts/Editor/ReadmeEditor.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TutorialInfo/Scripts/Editor/ReadmeEditor.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TutorialInfo/Scripts/Readme.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TutorialInfo/Scripts/Readme.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/YughuesChemistryGlasswareV2/Materials/YCG_GlassRough.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/YughuesChemistryGlasswareV2/Materials/YCG_GlassRough.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/BurstAotSettings_StandaloneWindows.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/BurstAotSettings_StandaloneWindows.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/CommonBurstAotSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/CommonBurstAotSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Centrifuge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Centrifuge.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,26 +35,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\schma\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache",
-      "C:\\Users\\schma\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache",
-      "C:\\Users\\schma\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\schma\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\schma\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\schma\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor &amp; Play">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="D:\Development\Unity\Unity 2021.3.19\2022.3.16f1\Editor\Unity.exe" />
@@ -97,10 +82,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="17880">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="17880" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -119,6 +104,9 @@
       <workItem from="1707558362066" duration="42000" />
       <workItem from="1707732557001" duration="30000" />
       <workItem from="1707735852514" duration="5865000" />
+      <workItem from="1707907840166" duration="639000" />
+      <workItem from="1707909810537" duration="4000" />
+      <workItem from="1707917759433" duration="5495000" />
     </task>
     <servers />
   </component>

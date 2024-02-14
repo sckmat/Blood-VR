@@ -159,6 +159,7 @@ GameObject:
   - component: {fileID: 4560387896236801728}
   - component: {fileID: 6465336787317966266}
   - component: {fileID: 5793834709363746890}
+  - component: {fileID: 2923111714386966539}
   m_Layer: 0
   m_Name: Blood
   m_TagString: Untagged
@@ -231,6 +232,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2923111714386966539
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6874431554309748920}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300002, guid: c449206050bf89a4cb5d680d3b5970dc, type: 3}
 --- !u!1 &8743352677128228506
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,6 +410,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: test tube
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7dce5a65edf3e8a4d8b5f6fc88fe26af,
+        type: 3}
+      propertyPath: m_TagString
+      value: TestTube
+      objectReference: {fileID: 0}
     - target: {fileID: 945514519606626375, guid: 7dce5a65edf3e8a4d8b5f6fc88fe26af,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -468,7 +496,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8151035844026319201, guid: 7dce5a65edf3e8a4d8b5f6fc88fe26af, type: 3}
 --- !u!1 &1850002344664653429 stripped
@@ -496,7 +524,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7240354159713794064, guid: 7dce5a65edf3e8a4d8b5f6fc88fe26af, type: 3}
 --- !u!1 &2830039725789306082 stripped
@@ -527,8 +555,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -547,12 +575,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.023081373, y: 0.118558, z: 0.040589344}
-  m_Center: {x: 0.0014280751, y: -0.043353837, z: 0.002335867}
+  m_Size: {x: 0.0165, y: 0.112044305, z: 0.0165}
+  m_Center: {x: 0, y: -0.04445125, z: 0.00000038277358}
 --- !u!114 &180321657165600296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,7 +626,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3093536857373426901, guid: 7dce5a65edf3e8a4d8b5f6fc88fe26af, type: 3}
 --- !u!4 &5812198971199420349 stripped
@@ -632,6 +660,6 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2124705421725058983, guid: 7dce5a65edf3e8a4d8b5f6fc88fe26af, type: 3}

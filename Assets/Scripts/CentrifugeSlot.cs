@@ -7,7 +7,7 @@ public class CentrifugeSlot : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("TestTube"))
+        if (other.CompareTag("TestTube") && !Centrifuge.isCentrifuged)
         {
             Debug.Log("OnTriggerEnter");
             Debug.Log("TRIGGERED: " + other.gameObject.name);
@@ -24,7 +24,7 @@ public class CentrifugeSlot : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("TestTube"))
+        if (other.CompareTag("TestTube") && Centrifuge.isCentrifuged)
         {
             Debug.Log("OnTriggerExit");
             Centrifuge.RemoveTestTube();

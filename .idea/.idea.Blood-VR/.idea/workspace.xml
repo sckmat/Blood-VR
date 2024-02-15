@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="96847edb-ef90-4732-9f91-0c0a09a42176" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blood-VR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blood-VR/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Centrifuge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Centrifuge.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CentrifugeSlot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CentrifugeSlot.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,6 +104,8 @@
       <workItem from="1707907840166" duration="639000" />
       <workItem from="1707909810537" duration="4000" />
       <workItem from="1707917759433" duration="5972000" />
+      <workItem from="1707927392552" duration="1326000" />
+      <workItem from="1707997564582" duration="379000" />
     </task>
     <servers />
   </component>

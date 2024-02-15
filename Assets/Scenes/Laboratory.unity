@@ -281,7 +281,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f47ba0ed4aa4a634fa8ab47f4fc1df6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  centrifugeSlot: {fileID: 0}
 --- !u!65 &50997924
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11117,7 +11116,7 @@ PrefabInstance:
     - target: {fileID: 4016445210929844151, guid: ffdc68bdded867e44aa767e82ec5197a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.337
+      value: -3.569
       objectReference: {fileID: 0}
     - target: {fileID: 4016445210929844151, guid: ffdc68bdded867e44aa767e82ec5197a,
         type: 3}

@@ -6,14 +6,15 @@ using UnityEngine.Serialization;
 
 public class Centrifuge : MonoBehaviour
 {
-    [SerializeField] private GameObject centrifugeSlot;
+   // [SerializeField] private GameObject centrifugeSlot;
     private static TestTube _currentTestTube;
     private static bool _isCentrifugeReady = false;
+    public static bool isCentrifuged = false;
     private const float CentrifugeDuration = 5.0f;
 
     private void Update()
     {
-        if (centrifugeSlot && Input.GetKeyDown(KeyCode.Space))
+        if (_isCentrifugeReady && Input.GetKeyDown(KeyCode.Space))
         {
             StartCoroutine(CentrifugeTestTube());
             Debug.Log("Start Centrifuging");
@@ -24,6 +25,7 @@ public class Centrifuge : MonoBehaviour
     {
         _currentTestTube = testTube;
         _isCentrifugeReady = true;
+        isCentrifuged = false;
     }
     
     public static void RemoveTestTube()
@@ -37,8 +39,9 @@ public class Centrifuge : MonoBehaviour
         Debug.Log("Centrifugation started");
         yield return new WaitForSeconds(CentrifugeDuration);
         Debug.Log("Centrifugation completed");
-
+    
         _currentTestTube.SetBloodState(TestTube.BloodState.Centrifuged);
+        isCentrifuged = true;
     }
     
     // private void OnTriggerEnter(Collider other)

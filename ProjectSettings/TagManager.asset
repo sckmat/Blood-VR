@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - TestTube
+  - Blood
+  - ShapedElements
+  - Serum
   layers:
   - Default
   - TransparentFX

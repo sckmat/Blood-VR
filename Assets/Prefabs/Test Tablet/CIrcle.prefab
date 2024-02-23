@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 8145919792141677200}
   - component: {fileID: 2345018683150125798}
   - component: {fileID: 506985389326065469}
+  - component: {fileID: 109165599800922745}
   m_Layer: 0
   m_Name: CIrcle
-  m_TagString: Untagged
+  m_TagString: Circle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,3 +108,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &109165599800922745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5181082582741475646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c84b25157cb38064a8aedf7164a64260, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emptyMaterial: {fileID: 2100000, guid: 4acc9b945ccdffc4e932678938bdec2f, type: 2}
+  shapedElementsMaterial: {fileID: 2100000, guid: 387cfb6685ad09e4b802b16238b0f202,
+    type: 2}
+  serumMaterial: {fileID: 2100000, guid: e71b98dba3bfcaa469e24294f18c2159, type: 2}

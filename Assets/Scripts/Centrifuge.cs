@@ -43,23 +43,5 @@ public class Centrifuge : MonoBehaviour
         _currentTestTube.SetBloodState(TestTube.BloodState.Centrifuged);
         isCentrifuged = true;
     }
-    
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //     var testTube = other.gameObject.GetComponent<TestTube>();
-    //     if (testTube == null) return;
-    //     StartCoroutine(CentrifugeTestTube(testTube));
-    //     Debug.Log("Start");
-    // }
-    //
-    // private IEnumerator CentrifugeTestTube(TestTube testTube)
-    // {
-    //     yield return new WaitForSeconds(CentrifugeDuration);
-    //     Debug.Log("Cent");
-    //     if (testTube != null)
-    //     {
-    //         testTube.SetBloodState(TestTube.BloodState.Centrifuged);
-    //     }
-    // }
 }
 

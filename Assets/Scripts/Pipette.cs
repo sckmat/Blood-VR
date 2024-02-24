@@ -14,9 +14,11 @@ public class Pipette : MonoBehaviour
 
     private MeshCollider _meshCollider;
     private TabletCircle _targetedCircle;
+    private Rigidbody _rb; 
     private void Awake()
     {
         _meshCollider = GetComponent<MeshCollider>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -24,11 +26,13 @@ public class Pipette : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             _meshCollider.isTrigger = true;
+            _rb.isKinematic = true;
         }
         
         if (Input.GetKeyDown(KeyCode.Space))
         {
             _meshCollider.isTrigger = true;
+            _rb.isKinematic = true;
             if (_targetedCircle != null && _currentState != PipetteState.Empty)
             {
                 _targetedCircle.Fill(_currentState);
@@ -46,6 +50,7 @@ public class Pipette : MonoBehaviour
             serum.SetActive(true);
             _currentState = PipetteState.Serum;
             _meshCollider.isTrigger = false;
+            _rb.isKinematic = false;
         }
         
         if (other.CompareTag("ShapedElements") && _currentState == PipetteState.Empty)
@@ -54,12 +59,14 @@ public class Pipette : MonoBehaviour
             shapedElements.SetActive(true);
             _currentState = PipetteState.ShapedElements;
             _meshCollider.isTrigger = false;
+            _rb.isKinematic = false;
         }
         
         if (other.gameObject.CompareTag("Circle"))
         {
             Debug.Log("Circle enter");
             _targetedCircle = other.gameObject.GetComponent<TabletCircle>();
+            _rb.isKinematic = false;
         }
     }
 

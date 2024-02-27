@@ -38,7 +38,7 @@ public class CentrifugeSlot : MonoBehaviour
                 Rigidbody rb = other.GetComponent<Rigidbody>();
                 if (rb != null)
                 { 
-                    rb.isKinematic = false;
+                    //  rb.isKinematic = false;
                 }
             }
 

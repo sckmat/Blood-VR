@@ -1,10 +1,11 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TestTube : MonoBehaviour
 {
     public enum BloodState { WholeBlood, Centrifuged }
 
-    private BloodState _currentState;
+    public BloodState currentState;
 
     [SerializeField] private GameObject wholeBlood;
     [SerializeField] private GameObject centrifugedBlood;
@@ -12,14 +13,14 @@ public class TestTube : MonoBehaviour
     public void SetBloodState(BloodState state)
     {
         Debug.Log(state);
-        _currentState = state;
+        currentState = state;
         wholeBlood.SetActive(state == BloodState.WholeBlood);
         centrifugedBlood.SetActive(state == BloodState.Centrifuged);
     }
 
     public BloodState GetBloodState()
     {
-        return _currentState;
+        return currentState;
     }
     
     // void Start()

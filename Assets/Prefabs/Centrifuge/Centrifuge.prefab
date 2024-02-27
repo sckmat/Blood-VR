@@ -465,7 +465,7 @@ GameObject:
   - component: {fileID: 1349414060178505097}
   m_Layer: 0
   m_Name: Cap
-  m_TagString: Untagged
+  m_TagString: CentrifugeCap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -595,7 +595,7 @@ HingeJoint:
   m_Anchor: {x: 0.43, y: 0, z: 0}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0116, y: 0.19080001, z: -0.074478194}
+  m_ConnectedAnchor: {x: 0.13206667, y: 0.19080003, z: -0.00060002506}
   serializedVersion: 2
   m_UseSpring: 0
   m_Spring:
@@ -785,6 +785,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7316280333053062097}
   - component: {fileID: 8637536339980988612}
+  - component: {fileID: 885995081653930003}
   m_Layer: 0
   m_Name: Centrifuge
   m_TagString: Untagged
@@ -823,6 +824,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f47ba0ed4aa4a634fa8ab47f4fc1df6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startButton: {fileID: 8965196525236372170}
+--- !u!65 &885995081653930003
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8709348452803773094}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.038114652, y: 0.25873333, z: 0.033648796}
+  m_Center: {x: -0.10544709, y: 0.001557231, z: 0.19738519}
 --- !u!1 &9013884913424241302
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,6 +1054,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slot1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7dce5a65edf3e8a4d8b5f6fc88fe26af,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 945514519606626375, guid: 7dce5a65edf3e8a4d8b5f6fc88fe26af,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1088,8 +1116,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.0999497, y: 0.17470086, z: 0.14974836}
-  m_Center: {x: -0.001805447, y: -0.0131229395, z: 0.025649816}
+  m_Size: {x: 0.0999497, y: 0.14494593, z: 0.102813385}
+  m_Center: {x: -0.001805447, y: -0.028000452, z: 0.049118094}
 --- !u!114 &6036479541127837128
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,7 +10,6 @@ public class CentrifugeSlot : MonoBehaviour
         other.gameObject.TryGetComponent<TestTube>(out var testTube);
         if (other.CompareTag("TestTube"))
         {
-            Debug.Log("OnTriggerEnter");
             Debug.Log("TRIGGERED: " + other.gameObject.name);
             if (testTube.currentState == TestTube.BloodState.WholeBlood)
             {
@@ -31,17 +30,8 @@ public class CentrifugeSlot : MonoBehaviour
         if (other.CompareTag("TestTube"))
         {
             other.gameObject.TryGetComponent<TestTube>(out var testTube);
-            if (testTube.currentState == TestTube.BloodState.Centrifuged)
-            {
-                Debug.Log("OnTriggerExit");
-                Centrifuge.RemoveTestTube();
-                Rigidbody rb = other.GetComponent<Rigidbody>();
-                if (rb != null)
-                { 
-                    //  rb.isKinematic = false;
-                }
-            }
-
+            Debug.Log("OnTriggerExit");
+            Centrifuge.RemoveTestTube();
         }
     }
 }

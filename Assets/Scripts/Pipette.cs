@@ -11,10 +11,12 @@ public class Pipette : MonoBehaviour
 
     [SerializeField] private GameObject shapedElements;
     [SerializeField] private GameObject serum;
-
+    
     private MeshCollider _meshCollider;
     private TabletCircle _targetedCircle;
     private Rigidbody _rb; 
+    private int _usesLeft = 3;
+
     private void Awake()
     {
         _meshCollider = GetComponent<MeshCollider>();
@@ -23,21 +25,26 @@ public class Pipette : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             _meshCollider.isTrigger = true;
             _rb.isKinematic = true;
         }
         
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && _usesLeft > 0)
         {
             _meshCollider.isTrigger = true;
             _rb.isKinematic = true;
             if (_targetedCircle != null && _currentState != PipetteState.Empty)
             {
                 _targetedCircle.Fill(_currentState);
-                Clear();
-                _currentState = PipetteState.Empty;
+                _usesLeft--;
+                if (_usesLeft <= 0)
+                {
+                    Clear();
+                    _currentState = PipetteState.Empty;
+                    _usesLeft = 3;
+                }
             }
         }
     }

@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BloodSample : MonoBehaviour
+public class BloodSample
 {
-    public enum BloodType { A, B, AB, O }
-    public enum RhesusFactor { Positive, Negative }
-
     public BloodType bloodType;
     public RhesusFactor rhesusFactor;
     
@@ -16,3 +13,6 @@ public class BloodSample : MonoBehaviour
         rhesusFactor = factor;
     }
 }
+
+public enum BloodType { A, B, AB, O }
+public enum RhesusFactor { Positive, Negative }

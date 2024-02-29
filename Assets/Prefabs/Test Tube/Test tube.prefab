@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 1556173471571134499}
   - component: {fileID: 7493527609787761445}
   m_Layer: 0
-  m_Name: Shaped elements
-  m_TagString: ShapedElements
+  m_Name: 'FormedElements '
+  m_TagString: FormedElements
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 387cfb6685ad09e4b802b16238b0f202, type: 2}
+  - {fileID: 2100000, guid: c9dea84897e1bb042b5088a813d763c6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -6,12 +6,12 @@ TagManager:
   tags:
   - TestTube
   - Blood
-  - ShapedElements
   - Serum
   - Circle
   - CentrifugeCap
   - BottlePipette
   - Reagent
+  - FormedElements
   layers:
   - Default
   - TransparentFX

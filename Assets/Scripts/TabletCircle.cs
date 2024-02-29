@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 public class TabletCircle : MonoBehaviour
 {
     [SerializeField] private Material emptyMaterial;
-    [SerializeField] private Material shapedElementsMaterial;
+    [SerializeField] private Material formedElementsMaterial;
     [SerializeField] private Material serumMaterial;
     [SerializeField] private Material colycloneMaterial;
 
@@ -24,8 +24,8 @@ public class TabletCircle : MonoBehaviour
     {
         switch (contents)
         {
-            case PipetteState.ShapedElements:
-                FillWithShapedElements();
+            case PipetteState.FormedElements:
+                FillWithFormedElements();
                 break;
             case PipetteState.Serum:
                 FillWithSerum();
@@ -57,9 +57,9 @@ public class TabletCircle : MonoBehaviour
     {
         _circleRenderer.material = colycloneMaterial;
     }
-    private void FillWithShapedElements()
+    private void FillWithFormedElements()
     {
-        _circleRenderer.material = shapedElementsMaterial;
+        _circleRenderer.material = formedElementsMaterial;
     }
 
     private void FillWithSerum()

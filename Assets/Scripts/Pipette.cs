@@ -8,101 +8,98 @@ using UnityEngine.Serialization;
 public class Pipette : MonoBehaviour
 {
     private PipetteState _currentState = PipetteState.Empty;
-
-    [SerializeField] private GameObject shapedElements;
-    [SerializeField] private GameObject serum;
-    
-    private MeshCollider _meshCollider;
+    private Dictionary<PipetteState, Material> _materials;
     private TabletCircle _targetedCircle;
-    private Rigidbody _rb; 
     private int _usesLeft = 3;
+    private ReagentType _currentReagent;
+
+    [SerializeField] private MeshRenderer content;
 
     private void Awake()
     {
-        _meshCollider = GetComponent<MeshCollider>();
-        _rb = GetComponent<Rigidbody>();
+        _materials = new Dictionary<PipetteState, Material>
+        {
+            { PipetteState.Empty, Resources.Load<Material>("Materials/Empty") },
+            { PipetteState.Serum, Resources.Load<Material>("Materials/Serum") },
+            { PipetteState.FormedElements, Resources.Load<Material>("Materials/FormedElements") },
+            { PipetteState.Reagent, Resources.Load<Material>("Materials/Colyclone") }
+        };
+        content.material = _materials[_currentState];
     }
 
-    private void Update()
+    public void Activate()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (_targetedCircle == null || _currentState == PipetteState.Empty) return;
+
+        if (_currentState == PipetteState.Reagent)
         {
-            _meshCollider.isTrigger = true;
-            _rb.isKinematic = true;
+            Debug.Log("Reagent");
+            _targetedCircle.FillFromReagent(_currentReagent);
         }
-        
-        if (Input.GetKeyDown(KeyCode.Space) && _usesLeft > 0)
+        else
         {
-            _meshCollider.isTrigger = true;
-            _rb.isKinematic = true;
-            if (_targetedCircle != null && _currentState != PipetteState.Empty)
-            {
-                _targetedCircle.FillFromTestTube(_currentState);
-                _usesLeft--;
-                if (_usesLeft <= 0)
-                {
-                    Clear();
-                    _currentState = PipetteState.Empty;
-                    _usesLeft = 3;
-                }
-            }
+            _targetedCircle.FillFromTestTube(_currentState);
         }
+
+        _usesLeft--;
+        if (_usesLeft <= 0) ResetPipette();
+    }
+
+    private void ResetPipette()
+    {
+        _currentReagent = ReagentType.None;
+        _currentState = PipetteState.Empty;
+        _usesLeft = 3;
+        content.material = _materials[_currentState];
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Serum") && _currentState == PipetteState.Empty)
+        if (other.CompareTag("Circle"))
         {
-            other.gameObject.SetActive(false);
-            serum.SetActive(true);
-            _currentState = PipetteState.Serum;
-            _meshCollider.isTrigger = false;
-            _rb.isKinematic = false;
-        }
-        
-        if (other.CompareTag("ShapedElements") && _currentState == PipetteState.Empty)
-        {
-            other.gameObject.SetActive(false);
-            shapedElements.SetActive(true);
-            _currentState = PipetteState.ShapedElements;
-            _meshCollider.isTrigger = false;
-            _rb.isKinematic = false;
-        }
-        
-        if (other.gameObject.CompareTag("Circle"))
-        {
-            Debug.Log("Circle enter");
             _targetedCircle = other.gameObject.GetComponent<TabletCircle>();
-            _rb.isKinematic = false;
+            Debug.Log("Circle enter");
+        }
+        else if (_currentState == PipetteState.Empty && !other.CompareTag("Untagged"))
+        {
+            SetMaterialBasedOnTag(other.tag, other);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Circle"))
-        {
-            Debug.Log("Circle exit");
-            _targetedCircle = null;
-        }
+        if (other.CompareTag("Circle")) _targetedCircle = null;
+        Debug.Log("Circle exit");
     }
 
-    private void Clear()
+    private void SetMaterialBasedOnTag(string currentTag, Collider other)
     {
-        switch (_currentState)
+        switch (currentTag)
         {
-            case PipetteState.Serum:
-                serum.SetActive(false);
+            case "Serum":
+                _currentState = PipetteState.Serum;
+                other.gameObject.SetActive(false);
                 break;
-            case PipetteState.ShapedElements:
-                shapedElements.SetActive(false);
+            case "FormedElements":
+                _currentState = PipetteState.FormedElements;
+                other.gameObject.SetActive(false);
                 break;
+            case "Reagent":
+                var reagentComponent = other.GetComponent<Reagent>();
+                _currentReagent = reagentComponent.GetReagent();
+                _currentState = PipetteState.Reagent;
+                break;
+            default:
+                return;
         }
+        content.material = _materials[_currentState];
     }
 }
 
 public enum PipetteState
 {
     Empty,
-    ShapedElements,
-    Serum
+    FormedElements,
+    Serum,
+    Reagent
 }

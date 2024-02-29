@@ -124,3 +124,4 @@ MonoBehaviour:
   shapedElementsMaterial: {fileID: 2100000, guid: 387cfb6685ad09e4b802b16238b0f202,
     type: 2}
   serumMaterial: {fileID: 2100000, guid: e71b98dba3bfcaa469e24294f18c2159, type: 2}
+  colycloneMaterial: {fileID: 2100000, guid: 51b602d2f702c254d993307077a45b92, type: 2}

@@ -9,6 +9,8 @@ public class TabletCircle : MonoBehaviour
     [SerializeField] private Material emptyMaterial;
     [SerializeField] private Material shapedElementsMaterial;
     [SerializeField] private Material serumMaterial;
+    [SerializeField] private Material colycloneMaterial;
+
 
     private Renderer _circleRenderer;
 
@@ -18,7 +20,7 @@ public class TabletCircle : MonoBehaviour
         _circleRenderer.material = emptyMaterial;
     }
 
-    public void Fill(PipetteState contents)
+    public void FillFromTestTube(PipetteState contents)
     {
         switch (contents)
         {
@@ -32,7 +34,29 @@ public class TabletCircle : MonoBehaviour
                 throw new ArgumentOutOfRangeException(nameof(contents), contents, null);
         }
     }
+    
+    public void FillFromReagent(ReagentType contents)
+    {
+        switch (contents)
+        {
+            case ReagentType.AntiA:
+                FillWithColyclone();
+                break;
+            case ReagentType.AntiB:
+                FillWithColyclone();
+                break;
+            case ReagentType.AntiD:
+                FillWithColyclone();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(contents), contents, null);
+        }
+    }
 
+    private void FillWithColyclone()
+    {
+        _circleRenderer.material = colycloneMaterial;
+    }
     private void FillWithShapedElements()
     {
         _circleRenderer.material = shapedElementsMaterial;

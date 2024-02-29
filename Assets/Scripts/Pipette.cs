@@ -37,7 +37,7 @@ public class Pipette : MonoBehaviour
             _rb.isKinematic = true;
             if (_targetedCircle != null && _currentState != PipetteState.Empty)
             {
-                _targetedCircle.Fill(_currentState);
+                _targetedCircle.FillFromTestTube(_currentState);
                 _usesLeft--;
                 if (_usesLeft <= 0)
                 {

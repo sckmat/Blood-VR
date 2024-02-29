@@ -3,8 +3,6 @@ using UnityEngine.Serialization;
 
 public class TestTube : MonoBehaviour
 {
-    public enum BloodState { WholeBlood, Centrifuged }
-
     public BloodState currentState;
     public BloodSample bloodSample;
 
@@ -28,3 +26,5 @@ public class TestTube : MonoBehaviour
         centrifugedBlood.SetActive(state == BloodState.Centrifuged);
     }
 }
+
+public enum BloodState { WholeBlood, Centrifuged }

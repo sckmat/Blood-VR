@@ -11,7 +11,7 @@ public class CentrifugeSlot : MonoBehaviour
         if (other.CompareTag("TestTube"))
         {
             Debug.Log("TRIGGERED: " + other.gameObject.name);
-            if (testTube.currentState == TestTube.BloodState.WholeBlood)
+            if (testTube.currentState == BloodState.WholeBlood)
             {
                 Centrifuge.SetTestTube(testTube);
                 other.gameObject.transform.position = transform.position;

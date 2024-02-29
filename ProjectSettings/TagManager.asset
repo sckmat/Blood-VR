@@ -11,6 +11,7 @@ TagManager:
   - Circle
   - CentrifugeCap
   - BottlePipette
+  - Reagent
   layers:
   - Default
   - TransparentFX

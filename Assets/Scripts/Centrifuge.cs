@@ -48,7 +48,7 @@ public class Centrifuge : MonoBehaviour
         yield return new WaitForSeconds(CentrifugeDuration);
         Debug.Log("Centrifugation completed");
     
-        _currentTestTube.SetBloodState(TestTube.BloodState.Centrifuged);
+        _currentTestTube.SetBloodState(BloodState.Centrifuged);
     }
 
     private void OnTriggerEnter(Collider other)

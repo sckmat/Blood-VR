@@ -33,7 +33,7 @@ public class BottlePipette : MonoBehaviour
             _rb.isKinematic = true;
             if (_targetedCircle != null)
             {
-                _targetedCircle.FillFromReagent(_currentReagent);
+                _targetedCircle.AddFromReagent(_currentReagent);
                 _usesLeft--;
                 if (_usesLeft <= 0)
                 {

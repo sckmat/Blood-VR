@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 public class TestTube : MonoBehaviour
 {
     public BloodState currentState;
-    public BloodSample bloodSample;
+    public static BloodSample bloodSample;
 
     [SerializeField] private GameObject wholeBlood;
     [SerializeField] private GameObject centrifugedBlood;

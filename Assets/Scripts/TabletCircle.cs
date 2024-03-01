@@ -10,7 +10,13 @@ public class TabletCircle : MonoBehaviour
     [SerializeField] private Material formedElementsMaterial;
     [SerializeField] private Material serumMaterial;
     [SerializeField] private Material colycloneMaterial;
+    [SerializeField] private Material agglutinationMaterial;
+    [SerializeField] private Material noAgglutinationMaterial;
 
+    private bool hasSerum = false;
+    private bool hasFormedElements = false;
+    private bool _hasAntiA = false;
+    private bool _hasAntiB = false;
 
     private Renderer _circleRenderer;
 
@@ -20,55 +26,73 @@ public class TabletCircle : MonoBehaviour
         _circleRenderer.material = emptyMaterial;
     }
 
-    public void FillFromTestTube(PipetteState contents)
+    public void AddFromTestTube(PipetteState contents)
     {
         switch (contents)
         {
             case PipetteState.FormedElements:
-                FillWithFormedElements();
+                AddFormedElements();
                 break;
             case PipetteState.Serum:
-                FillWithSerum();
+                AddSerum();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(contents), contents, null);
         }
     }
     
-    public void FillFromReagent(ReagentType contents)
+    public void AddFromReagent(ReagentType contents)
     {
-        switch (contents)
+        if (hasFormedElements && !_hasAntiA && !_hasAntiB)
         {
-            case ReagentType.AntiA:
-                FillWithColyclone();
-                break;
-            case ReagentType.AntiB:
-                FillWithColyclone();
-                break;
-            case ReagentType.AntiD:
-                FillWithColyclone();
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(contents), contents, null);
+            if (contents == ReagentType.AntiA)
+            {
+                _hasAntiA = true;
+            }
+
+            if (contents == ReagentType.AntiB)
+            {
+                _hasAntiB = true;
+            }
+            CheckAgglutination();
+        }
+    }
+    
+    private void AddFormedElements()
+    {
+        if (!hasFormedElements && !hasSerum)
+        {
+            hasFormedElements = true;
+            _circleRenderer.material = formedElementsMaterial;
         }
     }
 
-    private void FillWithColyclone()
+    private void AddSerum()
     {
-        _circleRenderer.material = colycloneMaterial;
-    }
-    private void FillWithFormedElements()
-    {
-        _circleRenderer.material = formedElementsMaterial;
-    }
-
-    private void FillWithSerum()
-    {
-        _circleRenderer.material = serumMaterial;
+        if (!hasSerum && !hasFormedElements) 
+        {
+            hasSerum = true;
+            _circleRenderer.material = serumMaterial;
+        }
     }
 
-    private void Clear()
+    private void CheckAgglutination()
     {
-        _circleRenderer.material = emptyMaterial;
+        if (!_hasAntiA && !_hasAntiB) return; // Если цоликлоны не добавлены, нет смысла проверять
+
+        bool agglutinationHappened = false;
+        if (TestTube.bloodSample != null)
+        {
+            BloodType bloodType = TestTube.bloodSample.bloodType;
+            if ((_hasAntiA && bloodType == BloodType.A) || (_hasAntiB && bloodType == BloodType.B) ||
+                (_hasAntiA && _hasAntiB && bloodType == BloodType.AB) ||
+                (!_hasAntiA && !_hasAntiB && bloodType == BloodType.O))
+            {
+                agglutinationHappened = true;
+            }
+        }
+
+        _circleRenderer.material = agglutinationHappened ? agglutinationMaterial : noAgglutinationMaterial;
     }
+
 }

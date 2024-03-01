@@ -34,11 +34,11 @@ public class Pipette : MonoBehaviour
         if (_currentState == PipetteState.Reagent)
         {
             Debug.Log("Reagent");
-            _targetedCircle.FillFromReagent(_currentReagent);
+            _targetedCircle.AddFromReagent(_currentReagent);
         }
         else
         {
-            _targetedCircle.FillFromTestTube(_currentState);
+            _targetedCircle.AddFromTestTube(_currentState);
         }
 
         _usesLeft--;

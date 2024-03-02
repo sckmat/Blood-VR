@@ -56,7 +56,6 @@ public class Centrifuge : MonoBehaviour
         if (other.CompareTag("CentrifugeCap"))
         {
             _isCapClosed = true;
-            Debug.Log("_isCapClosed true");
         }
     }
 
@@ -65,7 +64,6 @@ public class Centrifuge : MonoBehaviour
          if (other.CompareTag("CentrifugeCap"))
          {
                 _isCapClosed = false;
-                Debug.Log("_isCapClosed false");
          }
     }
 }

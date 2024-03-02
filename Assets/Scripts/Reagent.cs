@@ -22,4 +22,4 @@ public class Reagent : MonoBehaviour
     }
 }
 
-public enum ReagentType { None, AntiA, AntiB, AntiD }
+public enum ReagentType { None, AntiA, AntiB, AntiD, ErythrocyteA, ErythrocyteB, ErythrocyteO}

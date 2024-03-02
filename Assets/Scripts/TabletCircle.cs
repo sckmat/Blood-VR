@@ -17,6 +17,11 @@ public class TabletCircle : MonoBehaviour
     private bool hasFormedElements = false;
     private bool _hasAntiA = false;
     private bool _hasAntiB = false;
+    private bool _hasAntiD = false;
+    private bool _hasErythrocyteA = false;
+    private bool _hasErythrocyteB = false;
+    private bool _hasErythrocyteO = false;
+
 
     private Renderer _circleRenderer;
 
@@ -40,10 +45,10 @@ public class TabletCircle : MonoBehaviour
                 throw new ArgumentOutOfRangeException(nameof(contents), contents, null);
         }
     }
-    
+
     public void AddFromReagent(ReagentType contents)
     {
-        if (hasFormedElements && !_hasAntiA && !_hasAntiB)
+        if ((hasFormedElements && !_hasAntiA && !_hasAntiB && !_hasAntiD) || (hasSerum && !_hasErythrocyteO && !_hasErythrocyteA && !_hasErythrocyteB))
         {
             if (contents == ReagentType.AntiA)
             {
@@ -53,6 +58,26 @@ public class TabletCircle : MonoBehaviour
             if (contents == ReagentType.AntiB)
             {
                 _hasAntiB = true;
+            }
+            
+            if (contents == ReagentType.AntiD)
+            {
+                _hasAntiD = true;
+            }
+            
+            if (contents == ReagentType.ErythrocyteO)
+            {
+                _hasErythrocyteO = true;
+            }
+            
+            if (contents == ReagentType.ErythrocyteA)
+            {
+                _hasErythrocyteA = true;
+            }
+            
+            if (contents == ReagentType.ErythrocyteB)
+            {
+                _hasErythrocyteB = true;
             }
             CheckAgglutination();
         }
@@ -78,21 +103,32 @@ public class TabletCircle : MonoBehaviour
 
     private void CheckAgglutination()
     {
-        if (!_hasAntiA && !_hasAntiB) return; // Если цоликлоны не добавлены, нет смысла проверять
+        if (!_hasAntiA && !_hasAntiB && !_hasAntiD && !_hasErythrocyteA && !_hasErythrocyteO && !_hasErythrocyteB) return; 
 
-        bool agglutinationHappened = false;
+        bool agglutination = false;
         if (TestTube.bloodSample != null)
         {
             BloodType bloodType = TestTube.bloodSample.bloodType;
-            if ((_hasAntiA && bloodType == BloodType.A) || (_hasAntiB && bloodType == BloodType.B) ||
-                (_hasAntiA && _hasAntiB && bloodType == BloodType.AB) ||
-                (!_hasAntiA && !_hasAntiB && bloodType == BloodType.O))
+            RhesusFactor rhesusFactor = TestTube.bloodSample.rhesusFactor;
+            if (hasFormedElements && 
+                ((_hasAntiA && bloodType == BloodType.A) || (_hasAntiB && bloodType == BloodType.B) ||
+                ((_hasAntiA || _hasAntiB) && bloodType == BloodType.AB) ||
+                (!_hasAntiA && !_hasAntiB && bloodType == BloodType.O) ||
+                _hasAntiD && rhesusFactor == RhesusFactor.Positive))
             {
-                agglutinationHappened = true;
+                agglutination = true;
+            }
+            
+            if (hasSerum && 
+                ((_hasErythrocyteB && bloodType == BloodType.A) ||
+                 (_hasErythrocyteA && bloodType == BloodType.B) ||
+                 ((_hasErythrocyteA || _hasErythrocyteB) && bloodType == BloodType.O)))
+            {
+                agglutination = true;
             }
         }
 
-        _circleRenderer.material = agglutinationHappened ? agglutinationMaterial : noAgglutinationMaterial;
+        _circleRenderer.material = agglutination ? agglutinationMaterial : noAgglutinationMaterial;
     }
 
 }

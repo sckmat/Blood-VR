@@ -58,7 +58,6 @@ public class Pipette : MonoBehaviour
         if (other.CompareTag("Circle"))
         {
             _targetedCircle = other.gameObject.GetComponent<TabletCircle>();
-            Debug.Log("Circle enter");
         }
         else if (_currentState == PipetteState.Empty && !other.CompareTag("Untagged"))
         {
@@ -69,7 +68,6 @@ public class Pipette : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Circle")) _targetedCircle = null;
-        Debug.Log("Circle exit");
     }
 
     private void SetMaterialBasedOnTag(string currentTag, Collider other)

@@ -22,6 +22,7 @@ public class TabletCircle : MonoBehaviour
     private bool _hasErythrocyteB = false;
     private bool _hasErythrocyteO = false;
 
+    public bool agglutinatedProcess = false;
 
     private Renderer _circleRenderer;
 
@@ -79,7 +80,6 @@ public class TabletCircle : MonoBehaviour
             {
                 _hasErythrocyteB = true;
             }
-            CheckAgglutination();
         }
     }
     
@@ -101,7 +101,7 @@ public class TabletCircle : MonoBehaviour
         }
     }
 
-    private void CheckAgglutination()
+    public void CheckAgglutination()
     {
         if (!_hasAntiA && !_hasAntiB && !_hasAntiD && !_hasErythrocyteA && !_hasErythrocyteO && !_hasErythrocyteB) return; 
 
@@ -129,6 +129,7 @@ public class TabletCircle : MonoBehaviour
         }
 
         _circleRenderer.material = agglutination ? agglutinationMaterial : noAgglutinationMaterial;
+        agglutinatedProcess = true;
     }
 
 }

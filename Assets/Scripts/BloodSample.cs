@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class BloodSample
 {
-    public BloodType bloodType;
-    public RhesusFactor rhesusFactor;
+    public readonly BloodType bloodType;
+    public readonly RhesusFactor rhesusFactor;
     
     public BloodSample(BloodType type, RhesusFactor factor)
     {

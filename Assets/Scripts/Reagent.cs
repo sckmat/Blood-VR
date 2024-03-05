@@ -1,25 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Reagent : MonoBehaviour
 {
-    [SerializeField] private ReagentType reagentType = ReagentType.None;
-    
-    public ReagentType GetReagent()
-    {
-        return reagentType;
-    }
-
-    private void DisplayReagent()
-    {
-        //todo изменять внешний вид реагента в бутылке
-    }
-
+    public ReagentType reagentType = ReagentType.None;
+    public Colyclone colyclone = Colyclone.None;
+    public Erythrocyte erythrocyte= Erythrocyte.None;
     private void Awake()
     {
         DisplayReagent(); 
     }
+
+    private void DisplayReagent()
+    {
+        //todo изменять внешний вид реагента в бутылке и этикетку
+    }
 }
 
-public enum ReagentType { None, AntiA, AntiB, AntiD, ErythrocyteA, ErythrocyteB, ErythrocyteO}
+public enum ReagentType { None, Colyclone, Erythrocyte }
+public enum Colyclone { None, AntiA, AntiB, AntiD }
+public enum Erythrocyte { None, ErythrocyteA, ErythrocyteB, ErythrocyteO }
+

@@ -1,37 +1,37 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class TabletCircle : MonoBehaviour
 {
-    [SerializeField] private Material emptyMaterial;
-    [SerializeField] private Material formedElementsMaterial;
-    [SerializeField] private Material serumMaterial;
-    [SerializeField] private Material colycloneMaterial;
-    [SerializeField] private Material agglutinationMaterial;
-    [SerializeField] private Material noAgglutinationMaterial;
-
-    private bool hasSerum = false;
-    private bool hasFormedElements = false;
-    private bool _hasAntiA = false;
-    private bool _hasAntiB = false;
-    private bool _hasAntiD = false;
-    private bool _hasErythrocyteA = false;
-    private bool _hasErythrocyteB = false;
-    private bool _hasErythrocyteO = false;
-
-    public bool agglutinatedProcess = false;
-
+    private Dictionary<CircleState, Material> _materials;
+    public CircleState currentState = CircleState.Empty;
+    private readonly HashSet<Colyclone> _colyclones = new HashSet<Colyclone>();
+    private readonly HashSet<Erythrocyte> _erythrocytes = new HashSet<Erythrocyte>();
+    
     private Renderer _circleRenderer;
 
     private void Awake()
     {
+        LoadMaterials();
         _circleRenderer = GetComponent<Renderer>(); 
-        _circleRenderer.material = emptyMaterial;
+        _circleRenderer.material = _materials[currentState];
     }
 
+    private void LoadMaterials()
+    {
+        _materials = new Dictionary<CircleState, Material>
+        {
+            { CircleState.Empty, Resources.Load<Material>("Materials/Empty") },
+            { CircleState.Serum, Resources.Load<Material>("Materials/Serum") },
+            { CircleState.FormedElements, Resources.Load<Material>("Materials/FormedElements") },
+            { CircleState.Colyclone, Resources.Load<Material>("Materials/Colyclone") },
+            { CircleState.Erythrocyte, Resources.Load<Material>("Materials/Erythrocyte") },
+            { CircleState.Agglutination,  Resources.Load<Material>("Materials/Agglutination")},
+            { CircleState.NoAgglutination, Resources.Load<Material>("Materials/NoAgglutination")}
+        };
+    }
+    
     public void AddFromTestTube(PipetteState contents)
     {
         switch (contents)
@@ -47,89 +47,87 @@ public class TabletCircle : MonoBehaviour
         }
     }
 
-    public void AddFromReagent(ReagentType contents)
+    public void AddFromReagent(Reagent reagent)
     {
-        if ((hasFormedElements && !_hasAntiA && !_hasAntiB && !_hasAntiD) || (hasSerum && !_hasErythrocyteO && !_hasErythrocyteA && !_hasErythrocyteB))
+        switch(reagent.reagentType)
         {
-            if (contents == ReagentType.AntiA)
-            {
-                _hasAntiA = true;
-            }
-
-            if (contents == ReagentType.AntiB)
-            {
-                _hasAntiB = true;
-            }
-            
-            if (contents == ReagentType.AntiD)
-            {
-                _hasAntiD = true;
-            }
-            
-            if (contents == ReagentType.ErythrocyteO)
-            {
-                _hasErythrocyteO = true;
-            }
-            
-            if (contents == ReagentType.ErythrocyteA)
-            {
-                _hasErythrocyteA = true;
-            }
-            
-            if (contents == ReagentType.ErythrocyteB)
-            {
-                _hasErythrocyteB = true;
-            }
+            case ReagentType.Colyclone:
+                _colyclones.Add(reagent.colyclone);
+                SetState(CircleState.Colyclone);
+                break;
+            case ReagentType.Erythrocyte:
+                _erythrocytes.Add(reagent.erythrocyte);
+                SetState(CircleState.Erythrocyte);
+                break;
         }
     }
     
     private void AddFormedElements()
     {
-        if (!hasFormedElements && !hasSerum)
+        if (currentState == CircleState.Empty || currentState == CircleState.Colyclone)
         {
-            hasFormedElements = true;
-            _circleRenderer.material = formedElementsMaterial;
+            SetState(CircleState.FormedElements);
         }
     }
 
     private void AddSerum()
     {
-        if (!hasSerum && !hasFormedElements) 
+        if (currentState == CircleState.Empty || currentState == CircleState.Erythrocyte) 
         {
-            hasSerum = true;
-            _circleRenderer.material = serumMaterial;
+            SetState(CircleState.Serum);
         }
     }
+    
+    private void SetState(CircleState newState)
+    {
+        if (currentState != CircleState.Empty && newState is CircleState.Colyclone or CircleState.Erythrocyte)
+        {
+            Debug.Log("exit");
+            return;
+        }
+        currentState = newState;
+        UpdateMaterial();
+    }
 
+    private void UpdateMaterial()
+    {
+        if (_materials.TryGetValue(currentState, out Material newMaterial))
+        {
+            _circleRenderer.material = newMaterial;
+        }
+    }
+    
     public void CheckAgglutination()
     {
-        if (!_hasAntiA && !_hasAntiB && !_hasAntiD && !_hasErythrocyteA && !_hasErythrocyteO && !_hasErythrocyteB) return; 
+        var bloodSample = BloodManager.currentTestTube?.bloodSample;
+        if (_erythrocytes.Count == 0 && _colyclones.Count == 0 || bloodSample == null) return; 
+        var bloodType = bloodSample.bloodType;
+        var rhesusFactor = bloodSample.rhesusFactor;
 
-        bool agglutination = false;
-        if (TestTube.bloodSample != null)
+        var agglutination = currentState switch
         {
-            BloodType bloodType = TestTube.bloodSample.bloodType;
-            RhesusFactor rhesusFactor = TestTube.bloodSample.rhesusFactor;
-            if (hasFormedElements && 
-                ((_hasAntiA && bloodType == BloodType.A) || (_hasAntiB && bloodType == BloodType.B) ||
-                ((_hasAntiA || _hasAntiB) && bloodType == BloodType.AB) ||
-                (!_hasAntiA && !_hasAntiB && bloodType == BloodType.O) ||
-                _hasAntiD && rhesusFactor == RhesusFactor.Positive))
-            {
-                agglutination = true;
-            }
-            
-            if (hasSerum && 
-                ((_hasErythrocyteB && bloodType == BloodType.A) ||
-                 (_hasErythrocyteA && bloodType == BloodType.B) ||
-                 ((_hasErythrocyteA || _hasErythrocyteB) && bloodType == BloodType.O)))
-            {
-                agglutination = true;
-            }
-        }
-
-        _circleRenderer.material = agglutination ? agglutinationMaterial : noAgglutinationMaterial;
-        agglutinatedProcess = true;
+            CircleState.FormedElements => (_colyclones.Contains(Colyclone.AntiA) && bloodType == BloodType.A) ||
+                                          (_colyclones.Contains(Colyclone.AntiB) && bloodType == BloodType.B) ||
+                                          ((_colyclones.Contains(Colyclone.AntiA) || _colyclones.Contains(Colyclone.AntiB)) 
+                                          && bloodType == BloodType.AB) ||
+                                          (_colyclones.Contains(Colyclone.AntiD) && rhesusFactor == RhesusFactor.Positive),
+            CircleState.Serum => (_erythrocytes.Contains(Erythrocyte.ErythrocyteB) && bloodType == BloodType.A) ||
+                                 (_erythrocytes.Contains(Erythrocyte.ErythrocyteA) && bloodType == BloodType.B) ||
+                                 ((_erythrocytes.Contains(Erythrocyte.ErythrocyteA) ||
+                                   _erythrocytes.Contains(Erythrocyte.ErythrocyteB)) && bloodType == BloodType.O),
+            _ => false
+        };
+        SetState(agglutination ? CircleState.Agglutination : CircleState.NoAgglutination);
     }
 
+    public enum CircleState
+    {
+        Empty,
+        FormedElements,
+        Serum,
+        Colyclone,
+        Erythrocyte,
+        Agglutination,
+        NoAgglutination
+    }
 }

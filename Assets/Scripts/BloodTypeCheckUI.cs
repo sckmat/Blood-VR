@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -19,10 +17,11 @@ public class BloodTypeCheckUI : MonoBehaviour
 
     public void CheckAnswer()
     {
-        if(TestTube.bloodSample != null)
+        if(BloodManager.currentTestTube != null)
         {
-            bool correctBloodType = _selectedBloodType == TestTube.bloodSample.bloodType;
-            bool correctRhesusFactor = _selectedRhesusFactor == TestTube.bloodSample.rhesusFactor;
+            var bloodSample = BloodManager.currentTestTube.bloodSample;
+            bool correctBloodType = _selectedBloodType == bloodSample.bloodType;
+            bool correctRhesusFactor = _selectedRhesusFactor == bloodSample.rhesusFactor;
 
             if(correctBloodType && correctRhesusFactor)
             {

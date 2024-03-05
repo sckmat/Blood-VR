@@ -1,11 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StirringRod : MonoBehaviour
 {
-    private float _touchTime = 0f;
-    private bool _isTouching = false;
+    private float _touchTime;
+    private bool _isTouching;
     private Coroutine _agglutinationProcess;
 
     private void OnTriggerStay(Collider other)
@@ -18,7 +17,7 @@ public class StirringRod : MonoBehaviour
                 _isTouching = true;
                 _touchTime = Time.time;
             }
-            else if (Time.time - _touchTime >= 3f && _agglutinationProcess == null && !tabletCircle.agglutinatedProcess)
+            else if (Time.time - _touchTime >= 3f && _agglutinationProcess == null && tabletCircle.currentState != TabletCircle.CircleState.Agglutination)
             {
                 Debug.Log("OnTriggerStay");
                 _agglutinationProcess = StartCoroutine(AgglutinationRoutine(tabletCircle));
@@ -30,7 +29,6 @@ public class StirringRod : MonoBehaviour
     {
         if (other.CompareTag("Circle"))
         {
-            Debug.Log("OnTriggerExit ПАЛКА");
             ResetTouch();
         }
     }

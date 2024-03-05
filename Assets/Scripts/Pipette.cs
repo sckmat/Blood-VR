@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Pipette : MonoBehaviour
 {
@@ -11,11 +7,17 @@ public class Pipette : MonoBehaviour
     private Dictionary<PipetteState, Material> _materials;
     private TabletCircle _targetedCircle;
     private int _usesLeft = 3;
-    private ReagentType _currentReagent;
+    private Reagent _currentReagent;
 
     [SerializeField] private MeshRenderer content;
 
     private void Awake()
+    {
+        LoadMaterials();
+        content.material = _materials[_currentState];
+    }
+
+    private void LoadMaterials()
     {
         _materials = new Dictionary<PipetteState, Material>
         {
@@ -24,9 +26,7 @@ public class Pipette : MonoBehaviour
             { PipetteState.FormedElements, Resources.Load<Material>("Materials/FormedElements") },
             { PipetteState.Reagent, Resources.Load<Material>("Materials/Colyclone") }
         };
-        content.material = _materials[_currentState];
     }
-
     public void Activate()
     {
         if (_targetedCircle == null || _currentState == PipetteState.Empty) return;
@@ -47,7 +47,7 @@ public class Pipette : MonoBehaviour
 
     private void ResetPipette()
     {
-        _currentReagent = ReagentType.None;
+        _currentReagent = null;
         _currentState = PipetteState.Empty;
         _usesLeft = 3;
         content.material = _materials[_currentState];
@@ -83,8 +83,7 @@ public class Pipette : MonoBehaviour
                 other.gameObject.SetActive(false);
                 break;
             case "Reagent":
-                var reagentComponent = other.GetComponent<Reagent>();
-                _currentReagent = reagentComponent.GetReagent();
+                _currentReagent = other.GetComponent<Reagent>();
                 _currentState = PipetteState.Reagent;
                 break;
             default:

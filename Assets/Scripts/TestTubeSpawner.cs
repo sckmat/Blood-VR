@@ -7,6 +7,7 @@ public class TestTubeSpawner : MonoBehaviour
 
     public void SpawnTestTube()
     {
+        if(BloodManager.testTubes.Count > 0) return;
         Instantiate(testTubePrefab, spawnPoint.position, spawnPoint.rotation);
         BloodManager.InitializeTestTubes();
     }

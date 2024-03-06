@@ -3,7 +3,7 @@ using UnityEngine;
 
 public static class BloodManager
 {
-    private static List<TestTube> testTubes { get; set; } = new List<TestTube>();
+    public static List<TestTube> testTubes { get; private set; } = new List<TestTube>();
     public static TestTube currentTestTube { get; private set; }
     
     public static void InitializeTestTubes()

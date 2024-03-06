@@ -7,6 +7,7 @@ public class TestTube : MonoBehaviour
 
     [SerializeField] private GameObject wholeBlood;
     [SerializeField] private GameObject centrifugedBlood;
+    [SerializeField] private GameObject cap;
     
     private void Awake()
     {
@@ -21,6 +22,11 @@ public class TestTube : MonoBehaviour
         centrifugedBlood.SetActive(state == BloodState.Centrifuged);
     }
 
+    public void OpenCap()
+    {
+        cap.SetActive(!cap.activeSelf);
+    }
+    
     public void DestroyTestTube()
     {
         Destroy(gameObject);

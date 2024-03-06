@@ -6,8 +6,10 @@ public class CurrentTestTube : MonoBehaviour
     {
         if (other.CompareTag("TestTube"))
         {
-            BloodManager.SetCurrentTestTube(other.GetComponent<TestTube>());
-            Debug.Log("SetCurrentTestTube");
+            var testTube = other.GetComponent<TestTube>();
+            SnapTestTubeToSlot(testTube);
+            BloodManager.SetCurrentTestTube(testTube);
+            Debug.Log("SetCurrentTestTube" + gameObject.name);
         }
     }
 
@@ -16,7 +18,18 @@ public class CurrentTestTube : MonoBehaviour
         if (other.CompareTag("TestTube"))
         {
             BloodManager.RemoveCurrentTestTube();
-            Debug.Log("RemoveCurrentTestTube");
+            Debug.Log("RemoveCurrentTestTube" + gameObject.name);
+        }
+    }
+    
+    private void SnapTestTubeToSlot(TestTube testTube)
+    {
+        testTube.transform.position = transform.position;
+        testTube.transform.rotation = transform.rotation;
+        Rigidbody rb = testTube.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = true;
         }
     }
 }

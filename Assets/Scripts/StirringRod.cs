@@ -35,7 +35,6 @@ public class StirringRod : MonoBehaviour
 
     private IEnumerator AgglutinationRoutine(TabletCircle tabletCircle)
     {
-        Debug.Log("CheckAgglutination");
         yield return new WaitForSeconds(5f);
         tabletCircle.CheckAgglutination();
         _agglutinationProcess = null;

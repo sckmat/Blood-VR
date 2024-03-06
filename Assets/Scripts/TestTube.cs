@@ -20,6 +20,11 @@ public class TestTube : MonoBehaviour
         wholeBlood.SetActive(state == BloodState.WholeBlood);
         centrifugedBlood.SetActive(state == BloodState.Centrifuged);
     }
+
+    public void DestroyTestTube()
+    {
+        Destroy(gameObject);
+    }
 }
 
 public enum BloodState { WholeBlood, Centrifuged }

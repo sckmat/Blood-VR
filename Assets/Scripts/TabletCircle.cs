@@ -82,7 +82,6 @@ public class TabletCircle : MonoBehaviour
     {
         if (currentState != CircleState.Empty && newState is CircleState.Colyclone or CircleState.Erythrocyte)
         {
-            Debug.Log("exit");
             return;
         }
         currentState = newState;
@@ -103,6 +102,7 @@ public class TabletCircle : MonoBehaviour
         if (_erythrocytes.Count == 0 && _colyclones.Count == 0 || bloodSample == null) return; 
         var bloodType = bloodSample.bloodType;
         var rhesusFactor = bloodSample.rhesusFactor;
+        Debug.Log($"CheckAgglutination {bloodType} {rhesusFactor}");
 
         var agglutination = currentState switch
         {

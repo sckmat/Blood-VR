@@ -10,7 +10,7 @@ public static class BloodManager
     {
         foreach (var testTube in testTubes)
         {
-            testTube.bloodSample = CreateRandomBloodSample();
+            testTube.bloodSample ??= CreateRandomBloodSample();
             Debug.Log($"{testTube.bloodSample.bloodType}{testTube.bloodSample.rhesusFactor}");
         }
     }
@@ -40,11 +40,13 @@ public static class BloodManager
         }
     }
 
-    public static void RemoveTestTube(TestTube testTube)
+    public static void RemoveCompletedTestTube()
     {
-        if (testTubes.Contains(testTube))
+        if (testTubes.Contains(currentTestTube))
         {
-            testTubes.Remove(testTube);
+            testTubes.Remove(currentTestTube);
+            currentTestTube.DestroyTestTube();
+            Debug.Log(currentTestTube);
         }
     }
 }

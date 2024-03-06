@@ -26,6 +26,7 @@ public class BloodTypeCheckUI : MonoBehaviour
             if(correctBloodType && correctRhesusFactor)
             {
                 resultText.text = "Ответ верный!";
+                BloodManager.RemoveCompletedTestTube();
             }
             else
             {

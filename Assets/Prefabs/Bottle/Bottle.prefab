@@ -119,6 +119,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reagentType: 0
+  colyclone: 0
+  erythrocyte: 0
+  colycloneMaterial: {fileID: 2100000, guid: 51b602d2f702c254d993307077a45b92, type: 2}
+  erythrocyteMaterial: {fileID: 2100000, guid: eeccc17da74085745b4e49bddc3966dc, type: 2}
+  defaultLabelMaterial: {fileID: 2100000, guid: 4acc9b945ccdffc4e932678938bdec2f,
+    type: 2}
+  labelMaterials:
+  - {fileID: 2100000, guid: b0ca6f16c220ef44f8ff6fbfe18038d7, type: 2}
+  - {fileID: 2100000, guid: c3341b68737a8fd41a3f9eb268aea20e, type: 2}
+  - {fileID: 2100000, guid: c371e251b4328254ab05736070475815, type: 2}
+  - {fileID: 2100000, guid: 20376e036158a92468d2c68096892ea0, type: 2}
 --- !u!1 &6257358470680167027
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,7 +662,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: b38da407e276e694e98490f8af996efa, type: 2}
-  - {fileID: 2100000, guid: b0ca6f16c220ef44f8ff6fbfe18038d7, type: 2}
+  - {fileID: 2100000, guid: c3341b68737a8fd41a3f9eb268aea20e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

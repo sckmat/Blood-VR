@@ -10,12 +10,20 @@ public static class BloodManager
     {
         foreach (var testTube in testTubes)
         {
-            testTube.bloodSample ??= CreateRandomBloodSample();
+            if(LevelManager.currentMode == LevelMode.Level) 
+                testTube.bloodSample ??= CreateBloodSample(LevelManager.levelState.GetBloodSample());
+            else
+                testTube.bloodSample ??= CreateBloodSample();
             Debug.Log($"{testTube.bloodSample.bloodType}{testTube.bloodSample.rhesusFactor}");
         }
     }
 
-    private static BloodSample CreateRandomBloodSample()
+    private static BloodSample CreateBloodSample(BloodSample bloodSample)
+    {
+        return new BloodSample(bloodSample.bloodType, bloodSample.rhesusFactor);
+    }
+    
+    private static BloodSample CreateBloodSample()
     {
         BloodType randomBloodType = (BloodType)Random.Range(0, 4);
         RhesusFactor randomRhesusFactor = (RhesusFactor)Random.Range(0, 2);

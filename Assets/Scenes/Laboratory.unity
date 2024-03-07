@@ -5676,7 +5676,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d77b174eedc02fc4f8bdc03c3a5dfba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
 --- !u!4 &714156353
 Transform:
   m_ObjectHideFlags: 0
@@ -15488,6 +15487,74 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2137487328}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2141671745
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4016445210929844151, guid: ffdc68bdded867e44aa767e82ec5197a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 53.745594
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016445210929844151, guid: ffdc68bdded867e44aa767e82ec5197a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.0126508
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016445210929844151, guid: ffdc68bdded867e44aa767e82ec5197a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 45.062546
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016445210929844151, guid: ffdc68bdded867e44aa767e82ec5197a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016445210929844151, guid: ffdc68bdded867e44aa767e82ec5197a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016445210929844151, guid: ffdc68bdded867e44aa767e82ec5197a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016445210929844151, guid: ffdc68bdded867e44aa767e82ec5197a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016445210929844151, guid: ffdc68bdded867e44aa767e82ec5197a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016445210929844151, guid: ffdc68bdded867e44aa767e82ec5197a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016445210929844151, guid: ffdc68bdded867e44aa767e82ec5197a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5762838150294356779, guid: ffdc68bdded867e44aa767e82ec5197a,
+        type: 3}
+      propertyPath: m_Name
+      value: Test tube
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ffdc68bdded867e44aa767e82ec5197a, type: 3}
 --- !u!114 &781630662303634704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16349,3 +16416,4 @@ SceneRoots:
   - {fileID: 1880604551}
   - {fileID: 714156353}
   - {fileID: 1876673567}
+  - {fileID: 2141671745}

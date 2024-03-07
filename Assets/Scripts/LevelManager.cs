@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    public LevelState currentState = LevelState.Level;
+    public static LevelMode currentMode { get; private set; } = LevelMode.FreeAccess;
+    private static int _currentLevel = 0;
+    public static LevelState levelState { get; private set; }
 
     void Start()
     {
@@ -12,35 +14,41 @@ public class LevelManager : MonoBehaviour
 
     void InitializeLevel()
     {
-        switch (currentState)
+        switch (currentMode)
         {
-            case LevelState.Level:
-                EnableLevel();
+            case LevelMode.Level:
+                LoadLevelState();               
                 break;
-            case LevelState.FreeAccess:
+            case LevelMode.FreeAccess:
                 EnableFreeLabAccess();
                 break;
         }
     }
 
-    public void SetLevelState(LevelState newState)
+    public static void SetLevel(LevelMode newState, int level)
     {
-        currentState = newState;
-        InitializeLevel();
+        currentMode = newState;
+        _currentLevel = level;
     }
 
-    void EnableLevel()
+    void LoadLevelState()
     {
-        // todo  уровни
+        switch (_currentLevel)
+        {
+            case 1:
+                levelState = new LevelOne();
+                Debug.Log($"1 load");
+                break;
+        }
     }
-    
+
     void EnableFreeLabAccess()
     {
-        // todo свободный доступ
+        Debug.Log($"{currentMode} load");
     }
 }
 
-public enum LevelState
+public enum LevelMode
 {
     Level,
     FreeAccess

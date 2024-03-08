@@ -8983,6 +8983,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1941336409}
     m_Modifications:
+    - target: {fileID: 429646625318154617, guid: a840a21e513877d438953611814a8529,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 188cc42d820f7a84185eeec7839605f7, type: 2}
+    - target: {fileID: 1479989865926648389, guid: a840a21e513877d438953611814a8529,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d16623c27b07cd34dac643b203eccd0b, type: 2}
     - target: {fileID: 2277742840352732049, guid: a840a21e513877d438953611814a8529,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9038,6 +9048,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestTablet
       objectReference: {fileID: 0}
+    - target: {fileID: 8638809547272010251, guid: a840a21e513877d438953611814a8529,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c9dea84897e1bb042b5088a813d763c6, type: 2}
     - target: {fileID: 8986384959239160663, guid: a840a21e513877d438953611814a8529,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

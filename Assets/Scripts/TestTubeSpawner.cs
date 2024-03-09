@@ -8,7 +8,7 @@ public class TestTubeSpawner : MonoBehaviour
 
     private void Awake()
     {
-        gameObject.SetActive(LevelManager.currentMode != LevelMode.Level);
+        gameObject.SetActive(LevelManager.currentMode == LevelMode.FreeAccess || LevelManager.currentLevel == 6);
     }
 
     public void SpawnTestTube()

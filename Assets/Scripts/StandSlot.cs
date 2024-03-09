@@ -1,34 +1,34 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class CurrentTestTube : MonoBehaviour
+public class StandSlot : MonoBehaviour
 {
+    private bool _isEmpty = true;
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("TestTube"))
+        if (other.CompareTag("TestTube") && _isEmpty)
         {
             var testTube = other.GetComponent<TestTube>();
-            if (testTube.currentState == BloodState.Centrifuged)
-            {
-                SnapTestTubeToSlot(testTube);
-                BloodManager.SetCurrentTestTube(testTube);
-                Debug.Log("SetCurrentTestTube" + gameObject.name);
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("TestTube"))
-        {
-            BloodManager.RemoveCurrentTestTube();
-            Debug.Log("RemoveCurrentTestTube" + gameObject.name);
+            SnapTestTubeToSlot(testTube);
         }
     }
     
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("TestTube") && !_isEmpty)
+        {
+            _isEmpty = true;
+        }
+    }
+
     private void SnapTestTubeToSlot(TestTube testTube)
     {
         testTube.transform.position = transform.position;
         testTube.transform.rotation = transform.rotation;
+        _isEmpty = false;
         Rigidbody rb = testTube.GetComponent<Rigidbody>();
         if (rb != null)
         {

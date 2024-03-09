@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,7 +7,7 @@ public class Centrifuge : MonoBehaviour
 {
     [SerializeField] private Button startButton;
 
-    private static TestTube _currentTestTube;
+    private static readonly List<TestTube> CurrentTestTubes = new List<TestTube>();
     private bool _isCapClosed;
     private const float CentrifugeDuration = 5.0f;
 
@@ -18,7 +19,7 @@ public class Centrifuge : MonoBehaviour
     
     private void StartCentrifuge()
     {
-        if (_currentTestTube is not null && _isCapClosed)
+        if (CurrentTestTubes is not null && _isCapClosed)
         {
             StartCoroutine(CentrifugeTestTube());
             Debug.Log("Start Centrifuging");
@@ -31,12 +32,18 @@ public class Centrifuge : MonoBehaviour
     
     public static void SetTestTube(TestTube testTube)
     {
-        _currentTestTube = testTube;
+        if(!CurrentTestTubes.Contains(testTube))
+        {
+            CurrentTestTubes.Add(testTube);
+        }
     }
     
-    public static void RemoveTestTube()
+    public static void RemoveTestTube(TestTube testTube)
     {
-        _currentTestTube = null;
+        if (CurrentTestTubes.Contains(testTube))
+        {
+            CurrentTestTubes.Remove(testTube);
+        }
     }
 
     private IEnumerator CentrifugeTestTube()
@@ -44,8 +51,11 @@ public class Centrifuge : MonoBehaviour
         Debug.Log("Centrifugation started");
         yield return new WaitForSeconds(CentrifugeDuration);
         Debug.Log("Centrifugation completed");
-    
-        _currentTestTube.SetBloodState(BloodState.Centrifuged);
+
+        foreach (var testTube in CurrentTestTubes)
+        {
+            testTube.SetBloodState(BloodState.Centrifuged);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

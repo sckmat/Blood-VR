@@ -8,13 +8,19 @@ public static class BloodManager
     
     public static void InitializeTestTubes()
     {
-        foreach (var testTube in testTubes)
+        for (int i = 0; i < testTubes.Count; i++)
         {
-            if(LevelManager.currentMode == LevelMode.Level) 
-                testTube.bloodSample ??= CreateBloodSample(LevelManager.levelState.GetBloodSample());
+            if(LevelManager.currentMode == LevelMode.Level && LevelManager.levelBloodSample.Count == 1)
+            {
+                testTubes[i].bloodSample ??= CreateBloodSample(LevelManager.levelBloodSample[0]);
+            }            
+            else if (LevelManager.currentMode == LevelMode.Level && LevelManager.levelBloodSample.Count > 1)
+            {
+                testTubes[i].bloodSample ??= CreateBloodSample(LevelManager.levelBloodSample[i]);
+            }
             else
-                testTube.bloodSample ??= CreateBloodSample();
-            Debug.Log($"{testTube.bloodSample.bloodType}{testTube.bloodSample.rhesusFactor}");
+                testTubes[i].bloodSample ??= CreateBloodSample();
+            Debug.Log($"{testTubes[i].bloodSample.bloodType}{testTubes[i].bloodSample.rhesusFactor}");
         }
     }
 

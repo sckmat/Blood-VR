@@ -18,7 +18,6 @@ public class CentrifugeSlot : MonoBehaviour
                 other.gameObject.transform.position = transform.position;
                 other.gameObject.transform.rotation = transform.rotation;
                 _isEmpty = false;
-                gameObject.GetComponent<Collider>().isTrigger = false;
                 Rigidbody rb = other.GetComponent<Rigidbody>();
                 if (rb != null)
                 {
@@ -35,7 +34,6 @@ public class CentrifugeSlot : MonoBehaviour
         if (other.CompareTag("TestTube"))
         {
             other.gameObject.TryGetComponent<TestTube>(out var testTube);
-            gameObject.GetComponent<Collider>().isTrigger = true;
             Debug.Log("OnTriggerExit");
             Centrifuge.RemoveTestTube(testTube);
             _isEmpty = true;

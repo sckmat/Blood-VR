@@ -7,7 +7,7 @@ public class CurrentTestTube : MonoBehaviour
         if (other.CompareTag("TestTube"))
         {
             var testTube = other.GetComponent<TestTube>();
-            if (testTube.currentState == BloodState.Centrifuged)
+            if (testTube.currentState == BloodState.Centrifuged && BloodManager.currentTestTube == null)
             {
                 SnapTestTubeToSlot(testTube);
                 BloodManager.SetCurrentTestTube(testTube);
@@ -20,8 +20,12 @@ public class CurrentTestTube : MonoBehaviour
     {
         if (other.CompareTag("TestTube"))
         {
-            BloodManager.RemoveCurrentTestTube();
-            Debug.Log("RemoveCurrentTestTube" + gameObject.name);
+            var testTube = other.GetComponent<TestTube>();
+            if (testTube == BloodManager.currentTestTube)
+            {
+                BloodManager.RemoveCurrentTestTube();
+                Debug.Log("RemoveCurrentTestTube" + gameObject.name);
+            }
         }
     }
     

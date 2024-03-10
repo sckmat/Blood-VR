@@ -5,22 +5,28 @@ using UnityEngine;
 
 public class StandSlot : MonoBehaviour
 {
-    private bool _isEmpty = true;
+    private TestTube _testTube;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("TestTube") && _isEmpty)
+        if (other.CompareTag("TestTube") && _testTube == null)
         {
             var testTube = other.GetComponent<TestTube>();
+            _testTube = testTube;
             SnapTestTubeToSlot(testTube);
         }
     }
     
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("TestTube") && !_isEmpty)
+        if (other.CompareTag("TestTube"))
         {
-            _isEmpty = true;
+            var testTube = other.GetComponent<TestTube>();
+            if (testTube == _testTube)
+            {
+                Debug.Log("OnTriggerExit");
+                _testTube = null;
+            }
         }
     }
 
@@ -28,7 +34,6 @@ public class StandSlot : MonoBehaviour
     {
         testTube.transform.position = transform.position;
         testTube.transform.rotation = transform.rotation;
-        _isEmpty = false;
         Rigidbody rb = testTube.GetComponent<Rigidbody>();
         if (rb != null)
         {

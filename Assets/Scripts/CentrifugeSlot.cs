@@ -1,43 +1,48 @@
 using System;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class CentrifugeSlot : MonoBehaviour
 {
-    private bool _isEmpty = true;
+    private TestTube _testTube;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!_isEmpty) return;
-        other.gameObject.TryGetComponent<TestTube>(out var testTube);
         if (other.CompareTag("TestTube"))
         {
-            Debug.Log("TRIGGERED: " + other.gameObject.name);
-            if (testTube.currentState == BloodState.WholeBlood)
+            other.gameObject.TryGetComponent<TestTube>(out var testTube);
+            if (testTube.currentState == BloodState.WholeBlood && _testTube == null)
             {
+                Debug.Log("TRIGGERED: " + other.gameObject.name);
+                _testTube = testTube;
                 Centrifuge.SetTestTube(testTube);
-                other.gameObject.transform.position = transform.position;
-                other.gameObject.transform.rotation = transform.rotation;
-                _isEmpty = false;
-                Rigidbody rb = other.GetComponent<Rigidbody>();
-                if (rb != null)
-                {
-                    rb.isKinematic = true;
-                    Debug.Log(gameObject.name + _isEmpty);
-                }
+                SnapTestTubeToSlot(testTube);
             }
         }
     }
     
     private void OnTriggerExit(Collider other)
     {
-        if (_isEmpty) return;
         if (other.CompareTag("TestTube"))
         {
             other.gameObject.TryGetComponent<TestTube>(out var testTube);
-            Debug.Log("OnTriggerExit");
-            Centrifuge.RemoveTestTube(testTube);
-            _isEmpty = true;
-            Debug.Log(gameObject.name + _isEmpty);
+            if (_testTube == testTube)
+            {
+                Debug.Log("OnTriggerExit");
+                _testTube = null;
+                Centrifuge.RemoveTestTube(testTube);
+            }
+        }
+    }
+    
+    private void SnapTestTubeToSlot(TestTube testTube)
+    {
+        testTube.transform.position = transform.position;
+        testTube.transform.rotation = transform.rotation;
+        Rigidbody rb = testTube.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = true;
         }
     }
 }

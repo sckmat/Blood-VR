@@ -46,6 +46,11 @@ public class Centrifuge : MonoBehaviour
         }
     }
 
+    public static bool CheckTestTube(TestTube testTube)
+    {
+        return CurrentTestTubes.Contains(testTube);
+    }
+    
     private IEnumerator CentrifugeTestTube()
     {
         Debug.Log("Centrifugation started");

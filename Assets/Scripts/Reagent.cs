@@ -60,4 +60,3 @@ public class Reagent : MonoBehaviour
 public enum ReagentType { None, Colyclone, Erythrocyte }
 public enum Colyclone { None, AntiA, AntiB, AntiD }
 public enum Erythrocyte { None, ErythrocyteA, ErythrocyteB, ErythrocyteO }
-

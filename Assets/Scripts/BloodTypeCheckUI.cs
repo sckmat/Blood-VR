@@ -27,6 +27,7 @@ public class BloodTypeCheckUI : MonoBehaviour
             {
                 resultText.text = "Ответ верный!";
                 BloodManager.RemoveCompletedTestTube();
+                TabletCircle.ResetCircleEvent.Invoke();
             }
             else
             {

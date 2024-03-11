@@ -1,21 +1,25 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class TabletCircle : MonoBehaviour
 {
     private Dictionary<CircleState, Material> _materials;
     public CircleState currentState = CircleState.Empty;
-    private readonly HashSet<Colyclone> _colyclones = new HashSet<Colyclone>();
-    private readonly HashSet<Erythrocyte> _erythrocytes = new HashSet<Erythrocyte>();
+    private  HashSet<Colyclone> _colyclones = new HashSet<Colyclone>();
+    private  HashSet<Erythrocyte> _erythrocytes = new HashSet<Erythrocyte>();
     
     private Renderer _circleRenderer;
+    public static readonly UnityEvent ResetCircleEvent = new UnityEvent(); 
 
     private void Awake()
     {
         LoadMaterials();
         _circleRenderer = GetComponent<Renderer>(); 
         _circleRenderer.material = _materials[currentState];
+        ResetCircleEvent.AddListener(ResetCircle);
     }
 
     private void LoadMaterials()
@@ -120,6 +124,14 @@ public class TabletCircle : MonoBehaviour
         SetState(agglutination ? CircleState.Agglutination : CircleState.NoAgglutination);
     }
 
+    private void ResetCircle()
+    {
+        _colyclones = new HashSet<Colyclone>();
+        _erythrocytes = new HashSet<Erythrocyte>();
+        currentState = CircleState.Empty;
+        UpdateMaterial();
+    }
+    
     public enum CircleState
     {
         Empty,

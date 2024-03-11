@@ -16,6 +16,8 @@ public static class BloodManager
             }            
             else if (LevelManager.currentMode == LevelMode.Level && LevelManager.levelBloodSample.Count > 1)
             {
+                Debug.Log(LevelManager.levelBloodSample.Count);
+                Debug.Log(testTubes.Count);
                 testTubes[i].bloodSample ??= CreateBloodSample(LevelManager.levelBloodSample[i]);
             }
             else
@@ -24,6 +26,11 @@ public static class BloodManager
         }
     }
 
+    public static void ClearTestTubes()
+    {
+        testTubes.Clear();
+    }
+    
     private static BloodSample CreateBloodSample(BloodSample bloodSample)
     {
         return new BloodSample(bloodSample.bloodType, bloodSample.rhesusFactor);

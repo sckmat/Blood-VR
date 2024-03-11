@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
+        levelBloodSample = new List<BloodSample>();
         InitializeLevel();
         BloodManager.InitializeTestTubes();
     }

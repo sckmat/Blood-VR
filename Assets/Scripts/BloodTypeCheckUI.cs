@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class BloodTypeCheckUI : MonoBehaviour
 {
-    public TMP_Text resultText;
-
+    [SerializeField] private TMP_Text resultText;
+    [SerializeField] private GameObject win;
+    [SerializeField] private GameObject loss;
     private BloodType _selectedBloodType;
     private RhesusFactor _selectedRhesusFactor;
 
@@ -28,10 +29,14 @@ public class BloodTypeCheckUI : MonoBehaviour
                 resultText.text = "Ответ верный!";
                 BloodManager.RemoveCompletedTestTube();
                 TabletCircle.ResetCircleEvent.Invoke();
+                // todo проверка на несколько пробирок на 5 и 6 лвл
+                win.SetActive(true);
+                gameObject.SetActive(false);
             }
             else
             {
                 resultText.text = "Ответ неверный, попробуйте еще раз.";
+                loss.SetActive(true);
             }
         }
         else

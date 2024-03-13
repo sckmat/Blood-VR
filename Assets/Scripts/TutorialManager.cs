@@ -15,7 +15,7 @@ public class TutorialManager : MonoBehaviour
     private void Awake()
     {
         _currentHints = GetCurrentHints();
-        _currentHints.GetChild(0).gameObject.SetActive(true);
+        _currentHints?.GetChild(0).gameObject.SetActive(true);
         _currentHintIndex++;
     }
 

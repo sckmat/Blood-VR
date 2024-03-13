@@ -24,7 +24,6 @@ public class StandSlot : MonoBehaviour
             var testTube = other.GetComponent<TestTube>();
             if (testTube == _testTube)
             {
-                Debug.Log("OnTriggerExit");
                 _testTube = null;
             }
         }

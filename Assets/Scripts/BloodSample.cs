@@ -10,5 +10,5 @@ public class BloodSample
     }
 }
 
-public enum BloodType { A, B, AB, O }
+public enum BloodType { O, A, B, AB }
 public enum RhesusFactor { Positive, Negative }

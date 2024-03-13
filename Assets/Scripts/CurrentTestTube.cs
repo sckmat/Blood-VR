@@ -11,7 +11,6 @@ public class CurrentTestTube : MonoBehaviour
             {
                 SnapTestTubeToSlot(testTube);
                 BloodManager.SetCurrentTestTube(testTube);
-                Debug.Log("SetCurrentTestTube" + gameObject.name);
             }
         }
     }
@@ -24,7 +23,6 @@ public class CurrentTestTube : MonoBehaviour
             if (testTube == BloodManager.currentTestTube)
             {
                 BloodManager.RemoveCurrentTestTube();
-                Debug.Log("RemoveCurrentTestTube" + gameObject.name);
             }
         }
     }

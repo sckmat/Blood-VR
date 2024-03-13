@@ -4,6 +4,11 @@ public class TutorialManager : MonoBehaviour
 {
     [SerializeField] private GameObject tutorial1;
     [SerializeField] private GameObject tutorial2;
+    [SerializeField] private GameObject tutorial3;
+    [SerializeField] private GameObject tutorial4;
+    [SerializeField] private GameObject tutorial5;
+    [SerializeField] private GameObject tutorial6;
+
     private Transform _currentHints;
     private int _currentHintIndex = 0;
 
@@ -41,6 +46,14 @@ public class TutorialManager : MonoBehaviour
                 return tutorial1.transform;
             case 2:
                 return tutorial2.transform;
+            case 3:
+                return tutorial3.transform;
+            case 4:
+                return tutorial4.transform;
+            case 5:
+                return tutorial5.transform;
+            case 6:
+                return tutorial6.transform;
             default:
                 return null;
         }

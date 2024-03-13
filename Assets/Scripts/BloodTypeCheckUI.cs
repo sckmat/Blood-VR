@@ -8,6 +8,7 @@ public class BloodTypeCheckUI : MonoBehaviour
     [SerializeField] private GameObject loss;
     private BloodType _selectedBloodType;
     private RhesusFactor _selectedRhesusFactor;
+    private static int _rightAnswers;
 
     public void SelectA() { _selectedBloodType = BloodType.A; }
     public void SelectB() { _selectedBloodType = BloodType.B; }
@@ -29,19 +30,27 @@ public class BloodTypeCheckUI : MonoBehaviour
                 resultText.text = "Ответ верный!";
                 BloodManager.RemoveCompletedTestTube();
                 TabletCircle.ResetCircleEvent.Invoke();
-                // todo проверка на несколько пробирок на 5 и 6 лвл
+                if ((LevelManager.currentLevel == 5 && _rightAnswers < 2) || (LevelManager.currentLevel == 6 && _rightAnswers < 3))
+                {
+                    _rightAnswers++;
+                }
+                if (LevelManager.currentMode == LevelMode.FreeAccess || (LevelManager.currentLevel == 5 && _rightAnswers != 2) || (LevelManager.currentLevel == 6 && _rightAnswers != 3))
+                {
+                    return;
+                }
                 win.SetActive(true);
+                loss.SetActive(false);
                 gameObject.SetActive(false);
             }
             else
             {
-                resultText.text = "Ответ неверный, попробуйте еще раз.";
+                resultText.text = "Ответ неверный.";
                 loss.SetActive(true);
             }
         }
         else
         {
-            resultText.text = "Образец крови не найден.";
+            resultText.text = "Пробирка не найдена.";
         }
     }
 }

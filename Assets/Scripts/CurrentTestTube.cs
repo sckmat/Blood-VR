@@ -7,7 +7,7 @@ public class CurrentTestTube : MonoBehaviour
         if (other.CompareTag("TestTube"))
         {
             var testTube = other.GetComponent<TestTube>();
-            if (testTube.currentState == BloodState.Centrifuged && BloodManager.currentTestTube == null)
+            if (BloodManager.currentTestTube == null)
             {
                 SnapTestTubeToSlot(testTube);
                 BloodManager.SetCurrentTestTube(testTube);

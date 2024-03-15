@@ -2,20 +2,15 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-public static class Statistics
+public class Statistics
 {
-    public struct StatisticsData
-    {
-        public int totalTests { get; set; }
-        public int successfulTests { get; set; }
-    }
-    
-    public static int levelsCompleted { get; set; }
-    public static readonly Dictionary<Tuple<BloodType, RhesusFactor>, StatisticsData> BloodGroupStatistics = new Dictionary<Tuple<BloodType, RhesusFactor>, StatisticsData>();
+    public int levelsCompleted { get; set; }
+    [JsonConverter(typeof(BloodGroupStatisticsConverter))]
+    public Dictionary<BloodSample, StatisticsData> BloodGroupStatistics = new Dictionary<BloodSample, StatisticsData>();
 
-    public static void UpdateStatistics(BloodSample bloodSample, bool successfulAnalysis)
+    public void UpdateStatistics(BloodSample bloodSample, bool successfulAnalysis)
     {
-        var key = Tuple.Create(bloodSample.bloodType, bloodSample.rhesusFactor);
+        var key = new BloodSample(bloodSample.bloodType, bloodSample.rhesusFactor);
 
         if (!BloodGroupStatistics.TryGetValue(key, out var groupStatistics))
         {
@@ -28,9 +23,9 @@ public static class Statistics
         BloodGroupStatistics[key] = groupStatistics;
     }
 
-    public static float GetSuccessBloodGroupRate(BloodType bloodType, RhesusFactor rhesusFactor)
+    public float GetSuccessBloodGroupRate(BloodType bloodType, RhesusFactor rhesusFactor)
     {
-        var key = Tuple.Create(bloodType, rhesusFactor);
+        var key = new BloodSample(bloodType, rhesusFactor);
         if (BloodGroupStatistics.TryGetValue(key, out var statistics))
         {
             return CalculatePercentage(statistics);
@@ -38,13 +33,22 @@ public static class Statistics
         return 0f;
     }
 
-    public static void UpdateLevelsCompleted()
+    public void UpdateLevelsCompleted()
     {
-        levelsCompleted ++;
+        if (levelsCompleted < LevelManager.currentLevel)
+        {
+            levelsCompleted = LevelManager.currentLevel;
+        }
     }
     
     private static float CalculatePercentage(StatisticsData statistics)
     {
         return statistics.totalTests == 0 ? 0f : (float)statistics.successfulTests / statistics.totalTests * 100f;
     }
+}
+
+public struct StatisticsData
+{
+    public int totalTests { get; set; }
+    public int successfulTests { get; set; }
 }

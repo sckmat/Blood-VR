@@ -1,3 +1,5 @@
+using System;
+
 public class BloodSample
 {
     public readonly BloodType bloodType;
@@ -7,6 +9,18 @@ public class BloodSample
     {
         bloodType = type;
         rhesusFactor = factor;
+    }
+    
+    public override bool Equals(object obj)
+    {
+        return obj is BloodSample sample &&
+               bloodType == sample.bloodType &&
+               rhesusFactor == sample.rhesusFactor;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(bloodType, rhesusFactor);
     }
 }
 

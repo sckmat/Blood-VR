@@ -15,6 +15,6 @@ public class StatisticsView : MonoBehaviour
 
     private void Result()
     {
-        result.text = Statistics.GetSuccessBloodGroupRate(BloodType.A, RhesusFactor.Negative).ToString(CultureInfo.CurrentCulture);
+        result.text = UserManager.currentUser.statistics.GetSuccessBloodGroupRate(BloodType.A, RhesusFactor.Negative).ToString(CultureInfo.CurrentCulture);
     }
 }

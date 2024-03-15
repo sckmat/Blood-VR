@@ -69,7 +69,7 @@ public class BloodTypeCheckUI : MonoBehaviour
         else
         {
             resultText.text = "Ответ неверный.";
-            Statistics.UpdateStatistics(BloodManager.currentTestTube.bloodSample, false);
+            UserManager.currentUser.statistics.UpdateStatistics(BloodManager.currentTestTube.bloodSample, false);
             if(LevelManager.currentMode == LevelMode.FreeAccess) return;
             loss.SetActive(true);
         }
@@ -80,13 +80,14 @@ public class BloodTypeCheckUI : MonoBehaviour
     {
         resultText.text = "Ответ верный!";
         loss.SetActive(false);
-        Statistics.UpdateStatistics(BloodManager.currentTestTube.bloodSample, true);
+        UserManager.currentUser.statistics.UpdateStatistics(BloodManager.currentTestTube.bloodSample, true);
+        UserManager.currentUser.statistics.UpdateLevelsCompleted();
+
         BloodManager.RemoveCompletedTestTube();
         TabletCircle.ResetCircleEvent.Invoke();
         UpdateRightAnswers();
         if (!ShouldShowWin())
         {
-            Statistics.UpdateLevelsCompleted();
             ShowWin();
         }
     }

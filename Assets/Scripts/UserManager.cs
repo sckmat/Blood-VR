@@ -13,9 +13,11 @@ public static class UserManager
         SaveCurrentUser();
     }
 
-    public static void LoadUser(string json)
+    public static void LoadUser()
     {
-        currentUser = JsonConvert.DeserializeObject<User>(json);
+        currentUser = SaveManager.instance.LoadData();
+        // currentUser.statistics.BloodGroupStatistics = currentUser.bloodGroupStatistics;
+        // currentUser.statistics.levelsCompleted = currentUser.levels;
     }
 
     private static void SaveCurrentUser()

@@ -7,7 +7,7 @@ public class StartLevel : MonoBehaviour
     [SerializeField] private LevelMode levelState;
     [SerializeField] private int level;
 
-    private void Awake()
+    private void Start()
     {
         GetComponent<Button>().onClick.AddListener(LoadLevel);
         if (levelState == LevelMode.FreeAccess && UserManager.currentUser.statistics.levelsCompleted != 6) return;

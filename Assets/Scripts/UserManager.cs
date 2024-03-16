@@ -13,11 +13,9 @@ public static class UserManager
         SaveCurrentUser();
     }
 
-    public static void LoadUser()
+    public static void LoadUser(string nickname)
     {
-        currentUser = SaveManager.instance.LoadData();
-        // currentUser.statistics.BloodGroupStatistics = currentUser.bloodGroupStatistics;
-        // currentUser.statistics.levelsCompleted = currentUser.levels;
+        currentUser = SaveManager.instance.LoadData(nickname);
     }
 
     private static void SaveCurrentUser()

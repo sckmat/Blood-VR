@@ -22,16 +22,19 @@ public class SaveManager : MonoBehaviour
 
     public void SaveData(User user)
     {
-        string json = JsonConvert.SerializeObject(user);
-        string path = Path.Combine(Application.persistentDataPath, "user.json");
-        File.WriteAllText(path, json);
-        Debug.Log($"Data saved to {path}");
+        var json = JsonConvert.SerializeObject(user);
+        var userFolderPath = Path.Combine(Application.persistentDataPath, user.nickname);
+        if (!Directory.Exists(userFolderPath))
+            Directory.CreateDirectory(userFolderPath);
+        var filePath = Path.Combine(userFolderPath, "save.json");
+        File.WriteAllText(filePath, json);
+        Debug.Log($"Data saved to {filePath}");
     }
 
-    public User LoadData()
+    public User LoadData(string nickname)
     {
-        string path = Path.Combine(Application.persistentDataPath, "user.json");
-        string json = File.ReadAllText(path);
+        var path = Path.Combine(Application.persistentDataPath, $"{nickname}/save.json");
+        var json = File.ReadAllText(path);
         Debug.Log(json);
         return JsonConvert.DeserializeObject<User>(json);
     }

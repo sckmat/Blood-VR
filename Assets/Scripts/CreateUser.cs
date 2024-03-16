@@ -14,11 +14,19 @@ public class CreateUser : MonoBehaviour
 
     private void Start()
     {
+        nameInputField.onValueChanged.AddListener(ValidateInput);
         saveButton.onClick.AddListener(CreateAndSaveUser);
+        saveButton.interactable = false;
+    }
+
+    private void ValidateInput(string input)
+    {
+        saveButton.interactable = !string.IsNullOrWhiteSpace(input);
     }
 
     private void CreateAndSaveUser()
     {
-        UserManager.CreateUser(nameInputField.text);
+        if (!string.IsNullOrWhiteSpace(nameInputField.text))
+            UserManager.CreateUser(nameInputField.text);
     }
 }

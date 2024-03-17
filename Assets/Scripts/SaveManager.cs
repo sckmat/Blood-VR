@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -34,8 +35,19 @@ public class SaveManager : MonoBehaviour
     public User LoadData(string nickname)
     {
         var path = Path.Combine(Application.persistentDataPath, $"{nickname}/save.json");
-        var json = File.ReadAllText(path);
-        Debug.Log(json);
-        return JsonConvert.DeserializeObject<User>(json);
+        try
+        {
+            var json = File.ReadAllText(path);
+            Debug.Log(json);
+            var x = JsonConvert.DeserializeObject<User>(json);
+            Debug.LogWarning(x.nickname + x.statistics.levelsCompleted + x.statistics.bloodGroupStatistics.Count);
+            return JsonConvert.DeserializeObject<User>(json);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("Error loading user data: " + ex.Message);
+        }
+
+        return null;
     }
 }

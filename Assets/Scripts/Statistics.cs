@@ -5,14 +5,20 @@ using Newtonsoft.Json;
 public class Statistics
 {
     public int levelsCompleted { get; set; }
+    
     [JsonConverter(typeof(BloodGroupStatisticsConverter))]
-    public Dictionary<BloodSample, StatisticsData> BloodGroupStatistics = new Dictionary<BloodSample, StatisticsData>();
+    public readonly Dictionary<BloodSample, StatisticsData> bloodGroupStatistics;
+
+    public Statistics(Dictionary<BloodSample, StatisticsData> bloodGroupStatistics)
+    {
+        this.bloodGroupStatistics = bloodGroupStatistics;
+    }
 
     public void UpdateStatistics(BloodSample bloodSample, bool successfulAnalysis)
     {
         var key = new BloodSample(bloodSample.bloodType, bloodSample.rhesusFactor);
 
-        if (!BloodGroupStatistics.TryGetValue(key, out var groupStatistics))
+        if (!bloodGroupStatistics.TryGetValue(key, out var groupStatistics))
         {
             groupStatistics = new StatisticsData();
         }
@@ -20,13 +26,13 @@ public class Statistics
         groupStatistics.totalTests++;
         groupStatistics.successfulTests += successfulAnalysis ? 1 : 0;
 
-        BloodGroupStatistics[key] = groupStatistics;
+        bloodGroupStatistics[key] = groupStatistics;
     }
 
     public float GetSuccessBloodGroupRate(BloodType bloodType, RhesusFactor rhesusFactor)
     {
         var key = new BloodSample(bloodType, rhesusFactor);
-        if (BloodGroupStatistics.TryGetValue(key, out var statistics))
+        if (bloodGroupStatistics.TryGetValue(key, out var statistics))
         {
             return CalculatePercentage(statistics);
         }

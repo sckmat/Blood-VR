@@ -16,6 +16,7 @@ public static class UserManager
     public static void LoadUser(string nickname)
     {
         currentUser = SaveManager.instance.LoadData(nickname);
+        Debug.Log(currentUser.statistics.bloodGroupStatistics.Count);
     }
 
     private static void SaveCurrentUser()

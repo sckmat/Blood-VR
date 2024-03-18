@@ -24,7 +24,7 @@ public class Pipette : MonoBehaviour
             { PipetteState.Empty, Resources.Load<Material>("Materials/Empty") },
             { PipetteState.Serum, Resources.Load<Material>("Materials/Serum") },
             { PipetteState.FormedElements, Resources.Load<Material>("Materials/FormedElements") },
-            { PipetteState.Reagent, Resources.Load<Material>("Materials/Colyclone") }
+            { PipetteState.Reagent, Resources.Load<Material>("Materials/ColycloneD") }
         };
     }
     public void Activate()

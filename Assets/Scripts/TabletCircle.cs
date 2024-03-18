@@ -28,7 +28,9 @@ public class TabletCircle : MonoBehaviour
             { CircleState.Empty, Resources.Load<Material>("Materials/Empty") },
             { CircleState.Serum, Resources.Load<Material>("Materials/Serum") },
             { CircleState.FormedElements, Resources.Load<Material>("Materials/FormedElements") },
-            { CircleState.Colyclone, Resources.Load<Material>("Materials/Colyclone") },
+            { CircleState.ColycloneAntiA, Resources.Load<Material>("Materials/ColycloneA") },
+            { CircleState.ColycloneAntiB, Resources.Load<Material>("Materials/ColycloneB") },
+            { CircleState.ColycloneAntiD, Resources.Load<Material>("Materials/ColycloneD") },
             { CircleState.Erythrocyte, Resources.Load<Material>("Materials/Erythrocyte") },
             { CircleState.Agglutination,  Resources.Load<Material>("Materials/Agglutination")},
             { CircleState.NoAgglutination, Resources.Load<Material>("Materials/NoAgglutination")}
@@ -56,7 +58,13 @@ public class TabletCircle : MonoBehaviour
         {
             case ReagentType.Colyclone:
                 _colyclones.Add(reagent.colyclone);
-                SetState(CircleState.Colyclone);
+                SetState(reagent.colyclone switch
+                {
+                    Colyclone.AntiA => CircleState.ColycloneAntiA,
+                    Colyclone.AntiB => CircleState.ColycloneAntiB,
+                    Colyclone.AntiD => CircleState.ColycloneAntiD,
+                    _ => throw new ArgumentOutOfRangeException()
+                });
                 break;
             case ReagentType.Erythrocyte:
                 _erythrocytes.Add(reagent.erythrocyte);
@@ -67,7 +75,7 @@ public class TabletCircle : MonoBehaviour
     
     private void AddFormedElements()
     {
-        if (currentState == CircleState.Empty || currentState == CircleState.Colyclone)
+        if (currentState is CircleState.Empty or CircleState.ColycloneAntiA or CircleState.ColycloneAntiB or CircleState.ColycloneAntiD)
         {
             SetState(CircleState.FormedElements);
         }
@@ -83,7 +91,7 @@ public class TabletCircle : MonoBehaviour
     
     private void SetState(CircleState newState)
     {
-        if (currentState != CircleState.Empty && newState is CircleState.Colyclone or CircleState.Erythrocyte)
+        if (currentState != CircleState.Empty && newState is CircleState.ColycloneAntiA or CircleState.ColycloneAntiB or CircleState.ColycloneAntiD or CircleState.Erythrocyte)
         {
             return;
         }
@@ -102,6 +110,7 @@ public class TabletCircle : MonoBehaviour
     public void CheckAgglutination()
     {
         var bloodSample = BloodManager.currentTestTube?.bloodSample;
+        Debug.LogWarning("Aggl " + bloodSample);
         if (_erythrocytes.Count == 0 && _colyclones.Count == 0 || bloodSample == null) return; 
         var bloodType = bloodSample.bloodType;
         var rhesusFactor = bloodSample.rhesusFactor;
@@ -136,7 +145,9 @@ public class TabletCircle : MonoBehaviour
         Empty,
         FormedElements,
         Serum,
-        Colyclone,
+        ColycloneAntiA,
+        ColycloneAntiB,
+        ColycloneAntiD,
         Erythrocyte,
         Agglutination,
         NoAgglutination

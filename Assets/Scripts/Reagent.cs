@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Reagent : MonoBehaviour
@@ -9,7 +10,7 @@ public class Reagent : MonoBehaviour
     private Renderer _reagentRenderer;
     private Renderer _labelRenderer;
 
-    [SerializeField] private Material colycloneMaterial;
+    [SerializeField] private Material[] colycloneMaterials;
     [SerializeField] private Material erythrocyteMaterial;
 
     [SerializeField] private Material defaultLabelMaterial;
@@ -28,7 +29,20 @@ public class Reagent : MonoBehaviour
         switch (reagentType)
         {
             case ReagentType.Colyclone:
-                _reagentRenderer.material = colycloneMaterial;
+                switch (colyclone)
+                {
+                    case Colyclone.AntiA:
+                        _reagentRenderer.material = colycloneMaterials[0];
+                        break;
+                    case Colyclone.AntiB:
+                        _reagentRenderer.material = colycloneMaterials[1];
+                        break;
+                    case Colyclone.AntiD:
+                        _reagentRenderer.material = colycloneMaterials[3];
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
                 break;
             case ReagentType.Erythrocyte:
                 _reagentRenderer.material = erythrocyteMaterial;

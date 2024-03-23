@@ -38,7 +38,7 @@ public class Reagent : MonoBehaviour
                         _reagentRenderer.material = colycloneMaterials[1];
                         break;
                     case Colyclone.AntiD:
-                        _reagentRenderer.material = colycloneMaterials[3];
+                        _reagentRenderer.material = colycloneMaterials[2];
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

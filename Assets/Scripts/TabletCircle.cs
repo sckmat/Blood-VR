@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class TabletCircle : MonoBehaviour
 {
-    private Dictionary<CircleState, Material> _materials;
+    private Dictionary<CircleState, List<Material>> _materials;
     public CircleState currentState = CircleState.Empty;
     private  HashSet<Colyclone> _colyclones = new HashSet<Colyclone>();
     private  HashSet<Erythrocyte> _erythrocytes = new HashSet<Erythrocyte>();
@@ -17,23 +17,21 @@ public class TabletCircle : MonoBehaviour
     {
         LoadMaterials();
         _circleRenderer = GetComponent<Renderer>(); 
-        _circleRenderer.material = _materials[currentState];
+        _circleRenderer.material = _materials[currentState][0];
         ResetCircleEvent.AddListener(ResetCircle);
     }
 
     private void LoadMaterials()
     {
-        _materials = new Dictionary<CircleState, Material>
+        _materials = new Dictionary<CircleState, List<Material>>
         {
-            { CircleState.Empty, Resources.Load<Material>("Materials/Empty") },
-            { CircleState.Serum, Resources.Load<Material>("Materials/Serum") },
-            { CircleState.FormedElements, Resources.Load<Material>("Materials/FormedElements") },
-            { CircleState.ColycloneAntiA, Resources.Load<Material>("Materials/ColycloneA") },
-            { CircleState.ColycloneAntiB, Resources.Load<Material>("Materials/ColycloneB") },
-            { CircleState.ColycloneAntiD, Resources.Load<Material>("Materials/ColycloneD") },
-            { CircleState.Erythrocyte, Resources.Load<Material>("Materials/Erythrocyte") },
-            { CircleState.Agglutination,  Resources.Load<Material>("Materials/Agglutination")},
-            { CircleState.NoAgglutination, Resources.Load<Material>("Materials/NoAgglutination")}
+            { CircleState.Empty, new List<Material>(Resources.LoadAll<Material>("Materials/Empty")) },
+            { CircleState.Serum, new List<Material>(Resources.LoadAll<Material>("Materials/Serum")) },
+            { CircleState.FormedElements, new List<Material>(Resources.LoadAll<Material>("Materials/FormedElements")) },
+            { CircleState.Colyclone, new List<Material>(Resources.LoadAll<Material>("Materials/Colyclone")) },
+            { CircleState.Erythrocyte, new List<Material>(Resources.LoadAll<Material>("Materials/Erythrocyte")) },
+            { CircleState.Agglutination,  new List<Material>(Resources.LoadAll<Material>("Materials/Agglutination"))},
+            { CircleState.NoAgglutination, new List<Material>(Resources.LoadAll<Material>("Materials/NoAgglutination"))}
         };
     }
     
@@ -58,13 +56,7 @@ public class TabletCircle : MonoBehaviour
         {
             case ReagentType.Colyclone:
                 _colyclones.Add(reagent.colyclone);
-                SetState(reagent.colyclone switch
-                {
-                    Colyclone.AntiA => CircleState.ColycloneAntiA,
-                    Colyclone.AntiB => CircleState.ColycloneAntiB,
-                    Colyclone.AntiD => CircleState.ColycloneAntiD,
-                    _ => throw new ArgumentOutOfRangeException()
-                });
+                SetState(CircleState.Colyclone);
                 break;
             case ReagentType.Erythrocyte:
                 _erythrocytes.Add(reagent.erythrocyte);
@@ -75,7 +67,7 @@ public class TabletCircle : MonoBehaviour
     
     private void AddFormedElements()
     {
-        if (currentState is CircleState.Empty or CircleState.ColycloneAntiA or CircleState.ColycloneAntiB or CircleState.ColycloneAntiD)
+        if (currentState is CircleState.Empty or CircleState.Colyclone)
         {
             SetState(CircleState.FormedElements);
         }
@@ -91,7 +83,7 @@ public class TabletCircle : MonoBehaviour
     
     private void SetState(CircleState newState)
     {
-        if (currentState != CircleState.Empty && newState is CircleState.ColycloneAntiA or CircleState.ColycloneAntiB or CircleState.ColycloneAntiD or CircleState.Erythrocyte)
+        if (currentState != CircleState.Empty && newState is CircleState.Colyclone or CircleState.Erythrocyte)
         {
             return;
         }
@@ -101,9 +93,27 @@ public class TabletCircle : MonoBehaviour
 
     private void UpdateMaterial()
     {
-        if (_materials.TryGetValue(currentState, out Material newMaterial))
+        if (currentState == CircleState.Colyclone && _colyclones.Count > 0)
         {
-            _circleRenderer.material = newMaterial;
+            Material selectedMaterial = null;
+        
+            if (_colyclones.Contains(Colyclone.AntiA))
+                selectedMaterial = _materials[CircleState.Colyclone].Find(m => m.name.Contains("AntiA"));
+            else if (_colyclones.Contains(Colyclone.AntiB))
+                selectedMaterial = _materials[CircleState.Colyclone].Find(m => m.name.Contains("AntiB"));
+            else if (_colyclones.Contains(Colyclone.AntiD))
+                selectedMaterial = _materials[CircleState.Colyclone].Find(m => m.name.Contains("AntiD"));
+
+            if (selectedMaterial != null)
+            {
+                _circleRenderer.material = selectedMaterial;
+                return;
+            }
+        }
+        
+        if (_materials.TryGetValue(currentState, out var newMaterial))
+        {
+            _circleRenderer.material = newMaterial[0];
         }
     }
     
@@ -145,9 +155,7 @@ public class TabletCircle : MonoBehaviour
         Empty,
         FormedElements,
         Serum,
-        ColycloneAntiA,
-        ColycloneAntiB,
-        ColycloneAntiD,
+        Colyclone,
         Erythrocyte,
         Agglutination,
         NoAgglutination

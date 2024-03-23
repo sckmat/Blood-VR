@@ -4,7 +4,7 @@ using UnityEngine;
 public class Pipette : MonoBehaviour
 {
     private PipetteState _currentState = PipetteState.Empty;
-    private Dictionary<PipetteState, Material> _materials;
+    private Dictionary<PipetteState, List<Material>> _materials;
     private TabletCircle _targetedCircle;
     private int _usesLeft = 3;
     private Reagent _currentReagent;
@@ -14,17 +14,17 @@ public class Pipette : MonoBehaviour
     private void Awake()
     {
         LoadMaterials();
-        content.material = _materials[_currentState];
+        content.material = _materials[_currentState][0];
     }
 
     private void LoadMaterials()
     {
-        _materials = new Dictionary<PipetteState, Material>
+        _materials = new Dictionary<PipetteState, List<Material>>
         {
-            { PipetteState.Empty, Resources.Load<Material>("Materials/Empty") },
-            { PipetteState.Serum, Resources.Load<Material>("Materials/Serum") },
-            { PipetteState.FormedElements, Resources.Load<Material>("Materials/FormedElements") },
-            { PipetteState.Reagent, Resources.Load<Material>("Materials/ColycloneD") }
+            { PipetteState.Empty, new List<Material>(Resources.LoadAll<Material>("Materials/Empty")) },
+            { PipetteState.Serum, new List<Material>(Resources.LoadAll<Material>("Materials/Serum")) },
+            { PipetteState.FormedElements, new List<Material>(Resources.LoadAll<Material>("Materials/FormedElements")) },
+            { PipetteState.Reagent, new List<Material>(Resources.LoadAll<Material>("Materials/Colyclone")) }
         };
     }
     public void Activate()
@@ -50,7 +50,7 @@ public class Pipette : MonoBehaviour
         _currentReagent = null;
         _currentState = PipetteState.Empty;
         _usesLeft = 3;
-        content.material = _materials[_currentState];
+        content.material = _materials[_currentState][0];
     }
 
     private void OnTriggerEnter(Collider other)
@@ -89,7 +89,7 @@ public class Pipette : MonoBehaviour
             default:
                 return;
         }
-        content.material = _materials[_currentState];
+        content.material = _materials[_currentState][0];
     }
 }
 

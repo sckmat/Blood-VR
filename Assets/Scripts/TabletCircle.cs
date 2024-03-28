@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = System.Random;
 
 public class TabletCircle : MonoBehaviour
 {
@@ -110,10 +111,27 @@ public class TabletCircle : MonoBehaviour
                 return;
             }
         }
-        
-        if (_materials.TryGetValue(currentState, out var newMaterial))
+
+        SetRandomMaterial();
+    }
+    
+    private void SetRandomMaterial()
+    {
+        if (_materials.TryGetValue(currentState, out var materialsList))
         {
-            _circleRenderer.material = newMaterial[0];
+            if (materialsList.Count > 0)
+            {
+                var randomIndex = new Random().Next(materialsList.Count);
+                _circleRenderer.material = materialsList[randomIndex];
+            }
+            else
+            {
+                Debug.LogWarning("Нет доступных материалов для текущего состояния.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"Материалы для состояния {currentState} не найдены.");
         }
     }
     

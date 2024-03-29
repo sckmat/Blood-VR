@@ -11,18 +11,20 @@ public class GuideTabManager : MonoBehaviour
 
     private Button[] _buttons;
     private GameObject[] _contents;
+    private ScrollRect _scrollRect;
 
     private void Start()
     {
+        _scrollRect = GetComponentInChildren<ScrollRect>();
         _buttons = buttonsParent.GetComponentsInChildren<Button>();
         _contents = contentParent.Cast<Transform>().Select(t => t.gameObject).ToArray();
 
         for (int i = 0; i < _buttons.Length; i++)
         {
-            int index = i;  // Локальная переменная, необходима для замыкания в лямбда-выражении
+            int index = i; 
             _buttons[i].onClick.AddListener(() => SelectContent(index));
-            _contents[i].SetActive(i == 0);  // Активируем первый контент
-            _buttons[i].interactable = i != 0;  // Деактивируем первую кнопку
+            _contents[i].SetActive(i == 0);
+            _buttons[i].interactable = i != 0;
         }
     }
 
@@ -33,5 +35,12 @@ public class GuideTabManager : MonoBehaviour
             _contents[i].SetActive(i == index);
             _buttons[i].interactable = i != index;
         }
+
+        ResetScrollPosition();
+    }
+    
+    private void ResetScrollPosition()
+    {
+        _scrollRect.normalizedPosition = new Vector2(0, 1);
     }
 }

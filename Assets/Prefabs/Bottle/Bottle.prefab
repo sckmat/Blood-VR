@@ -502,6 +502,7 @@ GameObject:
   - component: {fileID: 9016302970511816192}
   - component: {fileID: 238452973370177428}
   - component: {fileID: 708131158074527080}
+  - component: {fileID: 34391124685741701}
   m_Layer: 0
   m_Name: pipette
   m_TagString: BottlePipette
@@ -834,6 +835,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f05b196c052aaf4bac7c6243d81b6a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &34391124685741701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9003947816145892874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f6c26b1af715e342885eb5dcd0deebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   content: {fileID: 1271366514781592588}

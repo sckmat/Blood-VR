@@ -51,24 +51,17 @@ public class Reagent : MonoBehaviour
                 break;
             case ReagentType.Erythrocyte:
                 _reagentRenderer.material = erythrocyteMaterial;
-                switch (erythrocyte)
+                labelText.text = erythrocyte switch
                 {
-                    case Erythrocyte.ErythrocyteA:
-                        labelText.text = "А";
-                        break;
-                    case Erythrocyte.ErythrocyteB:
-                        labelText.text = "B";
-                        break;
-                    case Erythrocyte.ErythrocyteO:
-                        labelText.text = "0";
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                    Erythrocyte.ErythrocyteA => "А",
+                    Erythrocyte.ErythrocyteB => "B",
+                    Erythrocyte.ErythrocyteO => "0",
+                    _ => throw new ArgumentOutOfRangeException()
+                };
                 break;
         }
 
-        Material[] materials = _labelRenderer.materials;
+        var materials = _labelRenderer.materials;
         if (materials.Length > 1)
         {
             materials[1] = GetLabelMaterial();

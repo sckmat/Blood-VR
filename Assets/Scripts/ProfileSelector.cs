@@ -9,13 +9,14 @@ using UnityEngine.UI;
 public class ProfileSelector : MonoBehaviour
 {
     [SerializeField] private Button selectProfile;
+    [SerializeField] private GameObject selectLevel;
     public Transform contentPanel;
     public GameObject profilePrefab;
     private Button _selectedProfileButton = null;
     private string _selectedProfileName = null;
 
 
-    void Start()
+    private void Awake()
     {
         LoadProfiles();
         selectProfile.onClick.AddListener(LoadSavedData);
@@ -57,6 +58,8 @@ public class ProfileSelector : MonoBehaviour
         if (_selectedProfileName != null)
         {
             UserManager.LoadUser(_selectedProfileName);
+            gameObject.SetActive(false);
+            selectLevel.gameObject.SetActive(true);
         }
     }
 }

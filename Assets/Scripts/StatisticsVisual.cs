@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StatisticsView : MonoBehaviour
+public class StatisticsVisual : MonoBehaviour
 {
     [SerializeField] private GameObject statisticsRowPrefab;
     [SerializeField] private Transform contentPanel;

@@ -29,27 +29,12 @@ public class Statistics
         bloodGroupStatistics[key] = groupStatistics;
     }
 
-    public float GetSuccessBloodGroupRate(BloodType bloodType, RhesusFactor rhesusFactor)
-    {
-        var key = new BloodSample(bloodType, rhesusFactor);
-        if (bloodGroupStatistics.TryGetValue(key, out var statistics))
-        {
-            return CalculatePercentage(statistics);
-        }
-        return 0f;
-    }
-
     public void UpdateLevelsCompleted()
     {
         if (levelsCompleted < LevelManager.instance.currentLevel)
         {
             levelsCompleted = LevelManager.instance.currentLevel;
         }
-    }
-    
-    private static float CalculatePercentage(StatisticsData statistics)
-    {
-        return statistics.totalTests == 0 ? 0f : (float)statistics.successfulTests / statistics.totalTests * 100f;
     }
 }
 

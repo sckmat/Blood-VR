@@ -2,48 +2,57 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PipetteVisual))]
 public class Pipette : MonoBehaviour
 {
     private PipetteState _currentState = PipetteState.Empty;
-    private Dictionary<PipetteState, List<Material>> _materials;
     private TabletCircle _targetedCircle;
     private int _usesLeft = 3;
     private Reagent _currentReagent;
     private BloodSample _currentBloodSample;
-    
-    [SerializeField] private MeshRenderer content;
+    private PipetteVisual _pipetteVisual;
 
     private void Awake()
     {
-        LoadMaterials();
-        content.material = _materials[_currentState][0];
+        _pipetteVisual = GetComponent<PipetteVisual>();
     }
 
-    private void LoadMaterials()
-    {
-        _materials = new Dictionary<PipetteState, List<Material>>
-        {
-            { PipetteState.Empty, new List<Material>(Resources.LoadAll<Material>("Materials/Empty")) },
-            { PipetteState.Serum, new List<Material>(Resources.LoadAll<Material>("Materials/Serum")) },
-            { PipetteState.FormedElements, new List<Material>(Resources.LoadAll<Material>("Materials/FormedElements")) },
-            { PipetteState.Reagent, new List<Material>(Resources.LoadAll<Material>("Materials/Colyclone")) }
-        };
-    }
     public void Activate()
     {
         if (_targetedCircle == null || _currentState == PipetteState.Empty) return;
 
         IAdditive additive = null;
+        var state = _targetedCircle.currentState;
         switch (_currentState)
         {
             case PipetteState.FormedElements:
-                additive = new FormedElementsAdditive(_currentBloodSample);
+                if (state == CircleState.Empty || state == CircleState.Colyclone)
+                    additive = new FormedElementsAdditive(_currentBloodSample);
+                else
+                {
+                    Debug.LogWarning("Error");
+                    return;
+                }
                 break;
             case PipetteState.Serum:
-                additive = new SerumAdditive(_currentBloodSample);
+                if (state == CircleState.Empty || state == CircleState.Erythrocyte)
+                    additive = new SerumAdditive(_currentBloodSample);
+                else
+                {
+                    Debug.LogWarning("Error");
+                    return;
+                }
                 break;
             case PipetteState.Reagent:
-                additive = new ReagentAdditive(_currentReagent);
+                if ((_currentReagent.reagentType == ReagentType.Colyclone && state == CircleState.FormedElements) 
+                    || _currentReagent.reagentType == ReagentType.Erythrocyte && state == CircleState.Serum 
+                    || state == CircleState.Empty) 
+                    additive = new ReagentAdditive(_currentReagent);
+                else
+                {
+                    Debug.LogWarning("Error");
+                    return;
+                }
                 break;
         }
 
@@ -51,14 +60,6 @@ public class Pipette : MonoBehaviour
 
         _usesLeft--;
         if (_usesLeft <= 0) ResetPipette();
-    }
-
-    private void ResetPipette()
-    {
-        _currentReagent = null;
-        _currentState = PipetteState.Empty;
-        _usesLeft = 3;
-        content.material = _materials[_currentState][0];
     }
 
     private void OnTriggerEnter(Collider other)
@@ -103,7 +104,15 @@ public class Pipette : MonoBehaviour
             default:
                 return;
         }
-        content.material = _materials[_currentState][0];
+        _pipetteVisual.UpdateMaterial(_currentState);
+    }
+    
+    private void ResetPipette()
+    {
+        _currentReagent = null;
+        _currentState = PipetteState.Empty;
+        _usesLeft = 3;
+        _pipetteVisual.UpdateMaterial(_currentState);
     }
 }
 

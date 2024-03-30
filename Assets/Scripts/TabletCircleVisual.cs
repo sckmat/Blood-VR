@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TabletCircleVisuals : MonoBehaviour
+public class TabletCircleVisual : MonoBehaviour
 {
     private Renderer _circleRenderer;
     private Dictionary<CircleState, List<Material>> _materials;

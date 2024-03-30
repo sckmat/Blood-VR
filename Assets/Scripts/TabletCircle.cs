@@ -8,11 +8,11 @@ public class TabletCircle : MonoBehaviour
 {
     private Dictionary<CircleState, List<Material>> _materials;
     public CircleState currentState = CircleState.Empty;
-    private  HashSet<Colyclone> _colyclones = new HashSet<Colyclone>();
-    private  HashSet<Erythrocyte> _erythrocytes = new HashSet<Erythrocyte>();
-    
+    private HashSet<Colyclone> _colyclones = new HashSet<Colyclone>();
+    private HashSet<Erythrocyte> _erythrocytes = new HashSet<Erythrocyte>();
     private Renderer _circleRenderer;
-    public static readonly UnityEvent ResetCircleEvent = new UnityEvent(); 
+    public static readonly UnityEvent ResetCircleEvent = new UnityEvent();
+    private BloodSample _currentBloodSample;
 
     private void Awake()
     {
@@ -35,23 +35,8 @@ public class TabletCircle : MonoBehaviour
             { CircleState.NoAgglutination, new List<Material>(Resources.LoadAll<Material>("Materials/NoAgglutination"))}
         };
     }
-    
-    public void AddFromTestTube(PipetteState contents)
-    {
-        switch (contents)
-        {
-            case PipetteState.FormedElements:
-                AddFormedElements();
-                break;
-            case PipetteState.Serum:
-                AddSerum();
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(contents), contents, null);
-        }
-    }
 
-    public void AddFromReagent(Reagent reagent)
+    public void AddReagent(Reagent reagent)
     {
         switch(reagent.reagentType)
         {
@@ -66,18 +51,20 @@ public class TabletCircle : MonoBehaviour
         }
     }
     
-    private void AddFormedElements()
+    public void AddFormedElements(BloodSample bloodSample)
     {
         if (currentState is CircleState.Empty or CircleState.Colyclone)
         {
+            _currentBloodSample = bloodSample;
             SetState(CircleState.FormedElements);
         }
     }
 
-    private void AddSerum()
+    public void AddSerum(BloodSample bloodSample)
     {
-        if (currentState == CircleState.Empty || currentState == CircleState.Erythrocyte) 
+        if (currentState == CircleState.Empty || currentState == CircleState.Erythrocyte)
         {
+            _currentBloodSample = bloodSample;
             SetState(CircleState.Serum);
         }
     }
@@ -137,11 +124,9 @@ public class TabletCircle : MonoBehaviour
     
     public void CheckAgglutination()
     {
-        var bloodSample = BloodManager.currentTestTube?.bloodSample;
-        Debug.LogWarning("Aggl " + bloodSample);
-        if (_erythrocytes.Count == 0 && _colyclones.Count == 0 || bloodSample == null) return; 
-        var bloodType = bloodSample.bloodType;
-        var rhesusFactor = bloodSample.rhesusFactor;
+        if (_erythrocytes.Count == 0 && _colyclones.Count == 0 || _currentBloodSample == null) return; 
+        var bloodType = _currentBloodSample.bloodType;
+        var rhesusFactor = _currentBloodSample.rhesusFactor;
         Debug.Log($"CheckAgglutination {bloodType} {rhesusFactor}");
 
         var agglutination = currentState switch

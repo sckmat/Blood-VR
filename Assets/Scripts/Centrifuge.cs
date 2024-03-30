@@ -22,7 +22,6 @@ public class Centrifuge : MonoBehaviour
         if (CurrentTestTubes is not null && _isCapClosed)
         {
             StartCoroutine(CentrifugeTestTube());
-            Debug.Log("Start Centrifuging");
         }
         else
         {

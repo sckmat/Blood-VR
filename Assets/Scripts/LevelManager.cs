@@ -89,9 +89,7 @@ public class LevelManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name != "Laboratory") return;
-        Debug.Log("OnSceneLoaded");
         levelBloodSample = new List<BloodSample>();
-        Debug.LogWarning(levelBloodSample.Count);
         InitializeLevel();
         BloodManager.InitializeTestTubes();
     }

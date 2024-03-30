@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,8 @@ public class Pipette : MonoBehaviour
     private TabletCircle _targetedCircle;
     private int _usesLeft = 3;
     private Reagent _currentReagent;
-
+    private BloodSample _currentBloodSample;
+    
     [SerializeField] private MeshRenderer content;
 
     private void Awake()
@@ -31,15 +33,21 @@ public class Pipette : MonoBehaviour
     {
         if (_targetedCircle == null || _currentState == PipetteState.Empty) return;
 
-        if (_currentState == PipetteState.Reagent)
+        IAdditive additive = null;
+        switch (_currentState)
         {
-            Debug.Log("Reagent");
-            _targetedCircle.AddFromReagent(_currentReagent);
+            case PipetteState.FormedElements:
+                additive = new FormedElementsAdditive(_currentBloodSample);
+                break;
+            case PipetteState.Serum:
+                additive = new SerumAdditive(_currentBloodSample);
+                break;
+            case PipetteState.Reagent:
+                additive = new ReagentAdditive(_currentReagent);
+                break;
         }
-        else
-        {
-            _targetedCircle.AddFromTestTube(_currentState);
-        }
+
+        additive?.Apply(_targetedCircle);
 
         _usesLeft--;
         if (_usesLeft <= 0) ResetPipette();
@@ -72,6 +80,12 @@ public class Pipette : MonoBehaviour
 
     private void SetMaterialBasedOnTag(string currentTag, Collider other)
     {
+        var testTube = other.GetComponentInParent<TestTube>();
+        if (testTube != null)
+        {
+            _currentBloodSample = testTube.bloodSample;
+        }
+        
         switch (currentTag)
         {
             case "Serum":

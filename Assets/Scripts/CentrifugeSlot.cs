@@ -11,7 +11,6 @@ public class CentrifugeSlot : MonoBehaviour
             other.gameObject.TryGetComponent<TestTube>(out var testTube);
             if (testTube.currentState == BloodState.WholeBlood && _testTube == null)
             {
-                Debug.Log("TRIGGERED: " + other.gameObject.name);
                 _testTube = testTube;
                 Centrifuge.SetTestTube(testTube);
                 SnapTestTubeToSlot(testTube);
@@ -26,7 +25,6 @@ public class CentrifugeSlot : MonoBehaviour
             other.gameObject.TryGetComponent<TestTube>(out var testTube);
             if (_testTube == testTube)
             {
-                Debug.Log("OnTriggerExit");
                 _testTube = null;
                 Centrifuge.RemoveTestTube(testTube);
             }

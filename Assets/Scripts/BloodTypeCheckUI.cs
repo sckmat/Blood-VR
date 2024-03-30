@@ -70,7 +70,7 @@ public class BloodTypeCheckUI : MonoBehaviour
         {
             resultText.text = "Ответ неверный.";
             UserManager.currentUser.statistics.UpdateStatistics(BloodManager.currentTestTube.bloodSample, false);
-            if(LevelManager.currentMode == LevelMode.FreeAccess) return;
+            if(LevelManager.instance.currentMode == LevelMode.FreeAccess) return;
             loss.SetActive(true);
         }
         SaveManager.instance.SaveData(UserManager.currentUser);
@@ -94,7 +94,7 @@ public class BloodTypeCheckUI : MonoBehaviour
 
     private void UpdateRightAnswers()
     {
-        if ((LevelManager.currentLevel == 5 && _rightAnswers < 2) || (LevelManager.currentLevel == 6 && _rightAnswers < 3))
+        if ((LevelManager.instance.currentLevel == 5 && _rightAnswers < 2) || (LevelManager.instance.currentLevel == 6 && _rightAnswers < 3))
         {
             _rightAnswers++;
             Debug.Log(_rightAnswers);
@@ -103,9 +103,9 @@ public class BloodTypeCheckUI : MonoBehaviour
 
     private bool ShouldShowWin()
     {
-        return LevelManager.currentMode == LevelMode.FreeAccess || 
-               (LevelManager.currentLevel == 5 && _rightAnswers != 2) || 
-               (LevelManager.currentLevel == 6 && _rightAnswers != 3);
+        return LevelManager.instance.currentMode == LevelMode.FreeAccess || 
+               (LevelManager.instance.currentLevel == 5 && _rightAnswers != 2) || 
+               (LevelManager.instance.currentLevel == 6 && _rightAnswers != 3);
     }
 
     private void ShowWin()

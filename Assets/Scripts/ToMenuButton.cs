@@ -6,6 +6,12 @@ public class ToMenuButton : MonoBehaviour
 {
     private void Awake()
     {
-        GetComponent<Button>().onClick.AddListener(() => SceneManager.LoadScene("Start"));
+        GetComponent<Button>().onClick.AddListener(LoadMenu);
+    }
+
+    private void LoadMenu()
+    {
+        BloodManager.ClearTestTubes();
+        SceneManager.LoadScene("Start");
     }
 }

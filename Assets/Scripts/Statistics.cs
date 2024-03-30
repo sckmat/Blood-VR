@@ -41,9 +41,9 @@ public class Statistics
 
     public void UpdateLevelsCompleted()
     {
-        if (levelsCompleted < LevelManager.currentLevel)
+        if (levelsCompleted < LevelManager.instance.currentLevel)
         {
-            levelsCompleted = LevelManager.currentLevel;
+            levelsCompleted = LevelManager.instance.currentLevel;
         }
     }
     

@@ -1,20 +1,37 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
-{
-    public static LevelMode currentMode { get; private set; } = LevelMode.FreeAccess;
-    public static int currentLevel { get; private set; } = 0;
-    public static List<BloodSample> levelBloodSample { get; private set; } = new List<BloodSample>();
+{ 
+    public static LevelManager instance { get; private set; }
 
-    void Start()
+    public LevelMode currentMode { get; private set; } = LevelMode.FreeAccess;
+    public int currentLevel { get; private set; } = 0;
+    public List<BloodSample> levelBloodSample { get; private set; } = new List<BloodSample>();
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void StartLevel()
     {
         levelBloodSample = new List<BloodSample>();
         InitializeLevel();
         BloodManager.InitializeTestTubes();
     }
 
-    void InitializeLevel()
+    private void InitializeLevel()
     {
         switch (currentMode)
         {
@@ -27,13 +44,13 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public static void SetLevel(LevelMode newState, int level)
+    public void SetLevel(LevelMode newState, int level)
     {
         currentMode = newState;
         currentLevel = level;
     }
 
-    void LoadLevelState()
+    private void LoadLevelState()
     {
         switch (currentLevel)
         {
@@ -63,15 +80,25 @@ public class LevelManager : MonoBehaviour
                 break;
         }
     }
-
-    public static void RemoveLevelBloodSample(BloodSample bloodSample)
-    {
-        levelBloodSample.Remove(bloodSample);
-    }
     
-    void EnableFreeLabAccess()
+    private void EnableFreeLabAccess()
     {
         Debug.Log($"{currentMode} load");
+    }
+    
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name != "Laboratory") return;
+        Debug.Log("OnSceneLoaded");
+        levelBloodSample = new List<BloodSample>();
+        Debug.LogWarning(levelBloodSample.Count);
+        InitializeLevel();
+        BloodManager.InitializeTestTubes();
+    }
+    
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
 

@@ -10,13 +10,13 @@ public static class BloodManager
     {
         for (int i = 0; i < testTubes.Count; i++)
         {
-            if(LevelManager.currentMode == LevelMode.Level && LevelManager.levelBloodSample.Count == 1)
+            if(LevelManager.instance.currentMode == LevelMode.Level && LevelManager.instance.levelBloodSample.Count == 1)
             {
-                testTubes[i].bloodSample ??= CreateBloodSample(LevelManager.levelBloodSample[0]);
+                testTubes[i].bloodSample ??= CreateBloodSample(LevelManager.instance.levelBloodSample[0]);
             }            
-            else if (LevelManager.currentMode == LevelMode.Level && LevelManager.levelBloodSample.Count > 1)
+            else if (LevelManager.instance.currentMode == LevelMode.Level && LevelManager.instance.levelBloodSample.Count > 1)
             {
-                testTubes[i].bloodSample ??= CreateBloodSample(LevelManager.levelBloodSample[i]);
+                testTubes[i].bloodSample ??= CreateBloodSample(LevelManager.instance.levelBloodSample[i]);
             }
             else
                 testTubes[i].bloodSample ??= CreateBloodSample();

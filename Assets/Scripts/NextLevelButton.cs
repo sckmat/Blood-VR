@@ -7,7 +7,7 @@ public class NextLevelButton : MonoBehaviour
     private void Awake()
     {
         var button = GetComponent<Button>();
-        if (LevelManager.currentLevel == 6 || LevelManager.currentMode == LevelMode.FreeAccess)
+        if (LevelManager.instance.currentLevel == 6 || LevelManager.instance.currentMode == LevelMode.FreeAccess)
         {
             button.interactable = false;
         }
@@ -16,8 +16,8 @@ public class NextLevelButton : MonoBehaviour
 
     private void NextLevel()
     {
-        LevelManager.SetLevel(LevelMode.Level, LevelManager.currentLevel + 1);
-        BloodManager.testTubes.Clear();
+        LevelManager.instance.SetLevel(LevelMode.Level, LevelManager.instance.currentLevel + 1);
+        BloodManager.ClearTestTubes();
         SceneManager.LoadScene("Laboratory");
     }
 }

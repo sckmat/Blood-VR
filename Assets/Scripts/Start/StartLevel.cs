@@ -17,7 +17,7 @@ public class StartLevel : MonoBehaviour
 
     private void LoadLevel()
     {
-        LevelManager.SetLevel(levelState, level);
+        LevelManager.instance.SetLevel(levelState, level);
         SceneManager.LoadScene("Laboratory");
     }
 }

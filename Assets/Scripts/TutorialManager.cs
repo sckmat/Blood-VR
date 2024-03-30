@@ -39,8 +39,8 @@ public class TutorialManager : MonoBehaviour
 
     private Transform GetCurrentHints()
     {
-        if (LevelManager.currentMode != LevelMode.Level) return null;
-        switch (LevelManager.currentLevel)
+        if (LevelManager.instance.currentMode != LevelMode.Level) return null;
+        switch (LevelManager.instance.currentLevel)
         {
             case 1:
                 return tutorial1.transform;

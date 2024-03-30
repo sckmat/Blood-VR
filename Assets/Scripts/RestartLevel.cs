@@ -11,7 +11,7 @@ public class RestartLevel : MonoBehaviour
     
     private void NextLevel()
     {
-        BloodManager.testTubes.Clear();
+        BloodManager.ClearTestTubes();
         SceneManager.LoadScene("Laboratory");
     }
 }

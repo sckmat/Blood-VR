@@ -25,18 +25,29 @@ public class TabletCircle : MonoBehaviour
         {
             case ReagentType.Colyclone:
                 _colyclones.Add(reagent.colyclone);
-                SetState(CircleState.Colyclone, reagent.colyclone);
-                break;
+                if (currentState == CircleState.FormedElements)
+                {
+                    SetState(CircleState.FormedElementsReagentMix);
+                }
+                else
+                {
+                    SetState(CircleState.Colyclone, reagent.colyclone);
+                }                break;
             case ReagentType.Erythrocyte:
                 _erythrocytes.Add(reagent.erythrocyte);
-                SetState(CircleState.Erythrocyte);
+                SetState(currentState == CircleState.Serum ? CircleState.SerumReagentMix : CircleState.Erythrocyte);
                 break;
         }
     }
     
     public void AddFormedElements(BloodSample bloodSample)
     {
-        if (currentState is CircleState.Empty or CircleState.Colyclone)
+        if (currentState == CircleState.Colyclone) 
+        {
+            SetState(CircleState.FormedElementsReagentMix);
+            _currentBloodSample = bloodSample;
+        }
+        else if (currentState == CircleState.Empty)
         {
             _currentBloodSample = bloodSample;
             SetState(CircleState.FormedElements);
@@ -45,7 +56,12 @@ public class TabletCircle : MonoBehaviour
 
     public void AddSerum(BloodSample bloodSample)
     {
-        if (currentState == CircleState.Empty || currentState == CircleState.Erythrocyte)
+        if (currentState == CircleState.Colyclone)
+        {
+            _currentBloodSample = bloodSample;
+            SetState(CircleState.SerumReagentMix);
+        }
+        else if (currentState == CircleState.Empty)
         {
             _currentBloodSample = bloodSample;
             SetState(CircleState.Serum);
@@ -71,12 +87,12 @@ public class TabletCircle : MonoBehaviour
 
         var agglutination = currentState switch
         {
-            CircleState.FormedElements => (_colyclones.Contains(Colyclone.AntiA) && bloodType == BloodType.A) ||
+            CircleState.FormedElementsReagentMix => (_colyclones.Contains(Colyclone.AntiA) && bloodType == BloodType.A) ||
                                           (_colyclones.Contains(Colyclone.AntiB) && bloodType == BloodType.B) ||
                                           ((_colyclones.Contains(Colyclone.AntiA) || _colyclones.Contains(Colyclone.AntiB)) 
                                           && bloodType == BloodType.AB) ||
                                           (_colyclones.Contains(Colyclone.AntiD) && rhesusFactor == RhesusFactor.Positive),
-            CircleState.Serum => (_erythrocytes.Contains(Erythrocyte.ErythrocyteB) && bloodType == BloodType.A) ||
+            CircleState.SerumReagentMix => (_erythrocytes.Contains(Erythrocyte.ErythrocyteB) && bloodType == BloodType.A) ||
                                  (_erythrocytes.Contains(Erythrocyte.ErythrocyteA) && bloodType == BloodType.B) ||
                                  ((_erythrocytes.Contains(Erythrocyte.ErythrocyteA) ||
                                    _erythrocytes.Contains(Erythrocyte.ErythrocyteB)) && bloodType == BloodType.O),

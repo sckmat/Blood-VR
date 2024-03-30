@@ -23,7 +23,9 @@ public class TabletCircleVisuals : MonoBehaviour
             { CircleState.Colyclone, new List<Material>(Resources.LoadAll<Material>("Materials/Colyclone")) },
             { CircleState.Erythrocyte, new List<Material>(Resources.LoadAll<Material>("Materials/Erythrocyte")) },
             { CircleState.Agglutination,  new List<Material>(Resources.LoadAll<Material>("Materials/Agglutination"))},
-            { CircleState.NoAgglutination, new List<Material>(Resources.LoadAll<Material>("Materials/NoAgglutination"))}
+            { CircleState.NoAgglutination, new List<Material>(Resources.LoadAll<Material>("Materials/NoAgglutination"))},
+            { CircleState.FormedElementsReagentMix, new List<Material>(Resources.LoadAll<Material>("Materials/FormedElementsReagentMix"))},
+            { CircleState.SerumReagentMix, new List<Material>(Resources.LoadAll<Material>("Materials/SerumReagentMix"))}
         };
     }
 

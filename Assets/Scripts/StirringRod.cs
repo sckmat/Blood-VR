@@ -17,7 +17,7 @@ public class StirringRod : MonoBehaviour
                 _isTouching = true;
                 _touchTime = Time.time;
             }
-            else if (Time.time - _touchTime >= 3f && _agglutinationProcess == null && tabletCircle.currentState != TabletCircle.CircleState.Agglutination)
+            else if (Time.time - _touchTime >= 3f && _agglutinationProcess == null && tabletCircle.currentState != CircleState.Agglutination)
             {
                 Debug.Log("OnTriggerStay");
                 _agglutinationProcess = StartCoroutine(AgglutinationRoutine(tabletCircle));

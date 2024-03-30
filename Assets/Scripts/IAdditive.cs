@@ -5,7 +5,7 @@ public interface IAdditive
 
 public class FormedElementsAdditive : IAdditive
 {
-    private BloodSample _bloodSample;
+    private readonly BloodSample _bloodSample;
 
     public FormedElementsAdditive(BloodSample bloodSample)
     {
@@ -20,7 +20,7 @@ public class FormedElementsAdditive : IAdditive
 
 public class SerumAdditive : IAdditive
 {
-    private BloodSample _bloodSample;
+    private readonly BloodSample _bloodSample;
 
     public SerumAdditive(BloodSample bloodSample)
     {
@@ -35,7 +35,7 @@ public class SerumAdditive : IAdditive
 
 public class ReagentAdditive : IAdditive
 {
-    private Reagent _reagent;
+    private readonly Reagent _reagent;
 
     public ReagentAdditive(Reagent reagent)
     {

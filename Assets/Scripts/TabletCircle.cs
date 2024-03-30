@@ -1,39 +1,22 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using Random = System.Random;
 
+[RequireComponent(typeof(TabletCircleVisuals))]
 public class TabletCircle : MonoBehaviour
 {
-    private Dictionary<CircleState, List<Material>> _materials;
     public CircleState currentState = CircleState.Empty;
     private HashSet<Colyclone> _colyclones = new HashSet<Colyclone>();
     private HashSet<Erythrocyte> _erythrocytes = new HashSet<Erythrocyte>();
-    private Renderer _circleRenderer;
     public static readonly UnityEvent ResetCircleEvent = new UnityEvent();
     private BloodSample _currentBloodSample;
+    private TabletCircleVisuals _visuals;
 
     private void Awake()
     {
-        LoadMaterials();
-        _circleRenderer = GetComponent<Renderer>(); 
-        _circleRenderer.material = _materials[currentState][0];
+        _visuals = GetComponent<TabletCircleVisuals>();
+        _visuals.UpdateMaterial(CircleState.Empty);
         ResetCircleEvent.AddListener(ResetCircle);
-    }
-
-    private void LoadMaterials()
-    {
-        _materials = new Dictionary<CircleState, List<Material>>
-        {
-            { CircleState.Empty, new List<Material>(Resources.LoadAll<Material>("Materials/Empty")) },
-            { CircleState.Serum, new List<Material>(Resources.LoadAll<Material>("Materials/Serum")) },
-            { CircleState.FormedElements, new List<Material>(Resources.LoadAll<Material>("Materials/FormedElements")) },
-            { CircleState.Colyclone, new List<Material>(Resources.LoadAll<Material>("Materials/Colyclone")) },
-            { CircleState.Erythrocyte, new List<Material>(Resources.LoadAll<Material>("Materials/Erythrocyte")) },
-            { CircleState.Agglutination,  new List<Material>(Resources.LoadAll<Material>("Materials/Agglutination"))},
-            { CircleState.NoAgglutination, new List<Material>(Resources.LoadAll<Material>("Materials/NoAgglutination"))}
-        };
     }
 
     public void AddReagent(Reagent reagent)
@@ -42,7 +25,7 @@ public class TabletCircle : MonoBehaviour
         {
             case ReagentType.Colyclone:
                 _colyclones.Add(reagent.colyclone);
-                SetState(CircleState.Colyclone);
+                SetState(CircleState.Colyclone, reagent.colyclone);
                 break;
             case ReagentType.Erythrocyte:
                 _erythrocytes.Add(reagent.erythrocyte);
@@ -69,57 +52,14 @@ public class TabletCircle : MonoBehaviour
         }
     }
     
-    private void SetState(CircleState newState)
+    private void SetState(CircleState newState, Colyclone? colyclone = null)
     {
         if (currentState != CircleState.Empty && newState is CircleState.Colyclone or CircleState.Erythrocyte)
         {
             return;
         }
         currentState = newState;
-        UpdateMaterial();
-    }
-
-    private void UpdateMaterial()
-    {
-        if (currentState == CircleState.Colyclone && _colyclones.Count > 0)
-        {
-            Material selectedMaterial = null;
-        
-            if (_colyclones.Contains(Colyclone.AntiA))
-                selectedMaterial = _materials[CircleState.Colyclone].Find(m => m.name.Contains("AntiA"));
-            else if (_colyclones.Contains(Colyclone.AntiB))
-                selectedMaterial = _materials[CircleState.Colyclone].Find(m => m.name.Contains("AntiB"));
-            else if (_colyclones.Contains(Colyclone.AntiD))
-                selectedMaterial = _materials[CircleState.Colyclone].Find(m => m.name.Contains("AntiD"));
-
-            if (selectedMaterial != null)
-            {
-                _circleRenderer.material = selectedMaterial;
-                return;
-            }
-        }
-
-        SetRandomMaterial();
-    }
-    
-    private void SetRandomMaterial()
-    {
-        if (_materials.TryGetValue(currentState, out var materialsList))
-        {
-            if (materialsList.Count > 0)
-            {
-                var randomIndex = new Random().Next(materialsList.Count);
-                _circleRenderer.material = materialsList[randomIndex];
-            }
-            else
-            {
-                Debug.LogWarning("Нет доступных материалов для текущего состояния.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning($"Материалы для состояния {currentState} не найдены.");
-        }
+        _visuals.UpdateMaterial(currentState, colyclone);
     }
     
     public void CheckAgglutination()
@@ -150,17 +90,19 @@ public class TabletCircle : MonoBehaviour
         _colyclones = new HashSet<Colyclone>();
         _erythrocytes = new HashSet<Erythrocyte>();
         currentState = CircleState.Empty;
-        UpdateMaterial();
+        _visuals.UpdateMaterial(currentState);
     }
-    
-    public enum CircleState
-    {
-        Empty,
-        FormedElements,
-        Serum,
-        Colyclone,
-        Erythrocyte,
-        Agglutination,
-        NoAgglutination
-    }
+}
+
+public enum CircleState
+{
+    Empty,
+    FormedElements,
+    Serum,
+    Colyclone,
+    Erythrocyte,
+    SerumReagentMix,
+    FormedElementsReagentMix,
+    Agglutination,
+    NoAgglutination
 }

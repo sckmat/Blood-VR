@@ -19,49 +19,56 @@ public class Pipette : MonoBehaviour
 
     public void Activate()
     {
-        if (_targetedCircle == null || _currentState == PipetteState.Empty) return;
-
-        IAdditive additive = null;
-        var state = _targetedCircle.currentState;
-        switch (_currentState)
+        if (_targetedCircle == null || _currentState == PipetteState.Empty)
         {
-            case PipetteState.FormedElements:
-                if (state == CircleState.Empty || state == CircleState.Colyclone) 
-                    additive = new FormedElementsAdditive(_currentBloodSample);
-                else
-                {
-                   AudioManager.instance.PlayErrorSoundAtPosition(transform.position);
-                    return;
-                }
-                break;
-            case PipetteState.Serum:
-                if (state == CircleState.Empty || state == CircleState.Erythrocyte)
-                    additive = new SerumAdditive(_currentBloodSample);
-                else
-                {
-                    AudioManager.instance.PlayErrorSoundAtPosition(transform.position);
-                    return;
-                }
-                break;
-            case PipetteState.Reagent:
-                if ((_currentReagent.reagentType == ReagentType.Colyclone && state == CircleState.FormedElements) 
-                    || _currentReagent.reagentType == ReagentType.Erythrocyte && state == CircleState.Serum 
-                    || state == CircleState.Empty) 
-                    additive = new ReagentAdditive(_currentReagent);
-                else
-                {
-                    AudioManager.instance.PlayErrorSoundAtPosition(transform.position);
-                    return;
-                }
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
+            PlayErrorSoundIfNeeded();
+            return;
         }
 
-        additive?.Apply(_targetedCircle);
+        IAdditive additive = CreateAdditiveBasedOnState();
 
+        if (additive == null)
+        {
+            PlayErrorSoundIfNeeded();
+            return;
+        }
+
+        additive.Apply(_targetedCircle);
+        DecreaseUseOrResetPipette();
+    }
+
+    private IAdditive CreateAdditiveBasedOnState()
+    {
+        var state = _targetedCircle.currentState;
+        return _currentState switch
+        {
+            PipetteState.FormedElements when state == CircleState.Empty || state == CircleState.Colyclone =>
+                new FormedElementsAdditive(_currentBloodSample),
+            PipetteState.Serum when state == CircleState.Empty || state == CircleState.Erythrocyte => new SerumAdditive(
+                _currentBloodSample),
+            PipetteState.Reagent when
+                (_currentReagent.reagentType == ReagentType.Colyclone && state == CircleState.FormedElements) ||
+                (_currentReagent.reagentType == ReagentType.Erythrocyte && state == CircleState.Serum) ||
+                state == CircleState.Empty => new ReagentAdditive(_currentReagent),
+            _ => null
+        };
+    }
+
+    private void PlayErrorSoundIfNeeded()
+    {
+        if (_currentState != PipetteState.Empty)
+        {
+            AudioManager.instance.PlayErrorSoundAtPosition(transform.position);
+        }
+    }
+
+    private void DecreaseUseOrResetPipette()
+    {
         _usesLeft--;
-        if (_usesLeft <= 0) ResetPipette();
+        if (_usesLeft <= 0)
+        {
+            ResetPipette();
+        }
     }
 
     private void OnTriggerEnter(Collider other)

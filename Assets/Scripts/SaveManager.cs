@@ -39,8 +39,6 @@ public class SaveManager : MonoBehaviour
         {
             var json = File.ReadAllText(path);
             Debug.Log(json);
-            var x = JsonConvert.DeserializeObject<User>(json);
-            Debug.LogWarning(x.nickname + x.statistics.levelsCompleted + x.statistics.bloodGroupStatistics.Count);
             return JsonConvert.DeserializeObject<User>(json);
         }
         catch (Exception ex)

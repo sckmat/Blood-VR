@@ -26,11 +26,11 @@ public class Pipette : MonoBehaviour
         switch (_currentState)
         {
             case PipetteState.FormedElements:
-                if (state == CircleState.Empty || state == CircleState.Colyclone)
+                if (state == CircleState.Empty || state == CircleState.Colyclone) 
                     additive = new FormedElementsAdditive(_currentBloodSample);
                 else
                 {
-                    Debug.LogWarning("Error");
+                   AudioManager.instance.PlayErrorSoundAtPosition(transform.position);
                     return;
                 }
                 break;
@@ -39,7 +39,7 @@ public class Pipette : MonoBehaviour
                     additive = new SerumAdditive(_currentBloodSample);
                 else
                 {
-                    Debug.LogWarning("Error");
+                    AudioManager.instance.PlayErrorSoundAtPosition(transform.position);
                     return;
                 }
                 break;
@@ -50,10 +50,12 @@ public class Pipette : MonoBehaviour
                     additive = new ReagentAdditive(_currentReagent);
                 else
                 {
-                    Debug.LogWarning("Error");
+                    AudioManager.instance.PlayErrorSoundAtPosition(transform.position);
                     return;
                 }
                 break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
 
         additive?.Apply(_targetedCircle);

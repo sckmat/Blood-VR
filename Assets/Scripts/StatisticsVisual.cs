@@ -12,8 +12,6 @@ public class StatisticsVisual : MonoBehaviour
     private void Awake()
     {
         DisplayStatistics(UserManager.currentUser.statistics.bloodGroupStatistics);
-        Debug.LogWarning(UserManager.currentUser.statistics.bloodGroupStatistics);
-
     }
 
     private void DisplayStatistics(Dictionary<BloodSample, StatisticsData> bloodGroupStatistics)

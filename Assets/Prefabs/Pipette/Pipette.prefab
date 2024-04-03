@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8134969171797294167}
   - component: {fileID: 4946252789623737576}
   - component: {fileID: 3274636411792646674}
+  - component: {fileID: 6581752697214797945}
   m_Layer: 0
   m_Name: Pipette
   m_TagString: Untagged
@@ -123,7 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f05b196c052aaf4bac7c6243d81b6a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: {fileID: 112434443257590616}
 --- !u!54 &4946252789623737576
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -339,6 +339,19 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &6581752697214797945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895042692169799882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f6c26b1af715e342885eb5dcd0deebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  content: {fileID: 112434443257590616}
 --- !u!1 &3430520409954835973
 GameObject:
   m_ObjectHideFlags: 0

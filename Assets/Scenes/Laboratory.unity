@@ -6536,7 +6536,7 @@ MonoBehaviour:
   m_ShadowRenderingLayers: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
-  m_SoftShadowQuality: 1
+  m_SoftShadowQuality: 3
 --- !u!1 &410338487
 GameObject:
   m_ObjectHideFlags: 0
@@ -19221,12 +19221,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 9898640a76eb71b45a0fa237c15a662d, type: 2}
+      objectReference: {fileID: 2100000, guid: d16623c27b07cd34dac643b203eccd0b, type: 2}
     - target: {fileID: 1940523904205276434, guid: a840a21e513877d438953611814a8529,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f3cd5cd0e025db642bdbebf8c56b2023, type: 2}
+      objectReference: {fileID: 2100000, guid: d8f79b7a2c2b45847a92f6462ece4a62, type: 2}
     - target: {fileID: 2277742840352732049, guid: a840a21e513877d438953611814a8529,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19287,6 +19287,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestTablet
       objectReference: {fileID: 0}
+    - target: {fileID: 6733150258093612155, guid: a840a21e513877d438953611814a8529,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9898640a76eb71b45a0fa237c15a662d, type: 2}
     - target: {fileID: 8638809547272010251, guid: a840a21e513877d438953611814a8529,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -22376,7 +22381,7 @@ Light:
   m_Intensity: 20
   m_Range: 10
   m_SpotAngle: 164
-  m_InnerSpotAngle: 157.8725
+  m_InnerSpotAngle: 130.32397
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
@@ -22432,7 +22437,7 @@ Transform:
   m_GameObject: {fileID: 1337959919}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 5.91, y: 3.4910002, z: -0.45000076}
+  m_LocalPosition: {x: 5.91, y: 3.452, z: -0.45000076}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

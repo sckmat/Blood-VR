@@ -89,6 +89,7 @@ public class BloodTypeCheckUI : MonoBehaviour
         if (!ShouldShowWin())
         {
             ShowWin();
+            _rightAnswers = 0;
         }
     }
 

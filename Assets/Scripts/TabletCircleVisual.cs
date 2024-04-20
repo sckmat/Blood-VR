@@ -10,7 +10,8 @@ public class TabletCircleVisual : MonoBehaviour
     private void Awake()
     {
         LoadMaterials();
-        _circleRenderer = GetComponent<Renderer>(); 
+        _circleRenderer = GetComponent<Renderer>();
+        _circleRenderer.material = _materials[CircleState.Empty][0];
     }
 
     private void LoadMaterials()

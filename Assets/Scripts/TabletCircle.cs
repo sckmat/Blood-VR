@@ -18,7 +18,6 @@ public class TabletCircle : MonoBehaviour
     private void Awake()
     {
         _visual = GetComponent<TabletCircleVisual>();
-        _visual.UpdateMaterial(CircleState.Empty);
         _bloodTypeDeterminer = GetComponent<BloodTypeDeterminer>();
         ResetCircleEvent.AddListener(ResetCircle);
     }

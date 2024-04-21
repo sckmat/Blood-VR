@@ -14,6 +14,7 @@ public class StirringRod : MonoBehaviour
             var tabletCircle = other.GetComponent<TabletCircle>();
             if (!_isTouching)
             {
+                GetComponent<AudioSource>().Play();
                 _isTouching = true;
                 _touchTime = Time.time;
             }
@@ -42,6 +43,7 @@ public class StirringRod : MonoBehaviour
 
     private void ResetTouch()
     {
+        GetComponent<AudioSource>().Stop();
         _isTouching = false;
         _touchTime = 0f;
     }

@@ -6,7 +6,8 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] private AudioClip errorSound;
     [SerializeField] private AudioClip doneSound;
-
+    // [SerializeField] private AudioClip centSound;
+    // [SerializeField] private AudioClip rodSound;
     private void Awake()
     {
         if (instance == null)
@@ -46,4 +47,14 @@ public class AudioManager : MonoBehaviour
     {
         PlaySoundAtPosition(doneSound, position);
     }
+    
+    /*public void PlayRodSoundAtPosition(Vector3 position)
+    {
+        PlaySoundAtPosition(rodSound, position);
+    }
+
+    public void PlayCentSoundAtPosition(Vector3 position)
+    {
+        PlaySoundAtPosition(centSound, position);
+    }*/
 }

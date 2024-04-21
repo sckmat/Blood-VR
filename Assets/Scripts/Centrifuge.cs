@@ -24,6 +24,7 @@ public class Centrifuge : MonoBehaviour
         if (CurrentTestTubes is not null && _isCapClosed)
         {
             countdownText.gameObject.SetActive(true);
+            GetComponent<AudioSource>().Play();
             StartCoroutine(CentrifugeTestTube());
         }
         else
@@ -75,6 +76,7 @@ public class Centrifuge : MonoBehaviour
             timeLeft -= 0.1f;
         }
         countdownText.text = "0.0с.";
+        GetComponent<AudioSource>().Stop();
         AudioManager.instance.PlayDoneSoundAtPosition(transform.position);
         countdownText.gameObject.SetActive(false);
     }
